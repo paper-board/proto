@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package paperboard.common.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/common/v1;commonv1";
+
+// PageRequest is cursor-based pagination input.
+message PageRequest {
+  // Cursor returned in previous PageResponse.next_cursor; empty for first page.
+  string cursor = 1;
+
+  // Page size, capped server-side. Default 50, max 200.
+  optional int32 limit = 2;
+}
+
+// PageResponse wraps a paginated result.
+message PageResponse {
+  // Cursor for next page; empty when no more results.
+  string next_cursor = 1;
+
+  // Total count if cheaply available; absent for streaming endpoints.
+  optional int64 total = 2;
+}

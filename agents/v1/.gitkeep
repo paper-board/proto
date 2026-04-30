@@ -1,0 +1,4 @@
+# Phase 4'te doldurulacak. Beklenen .proto dosyaları:
+#   agents.proto    — AgentService (CRUD)
+#   sessions.proto  — SessionService (Start, Resume, Cancel, ListEvents)
+#   prompt.proto    — PromptService (StartPrompt streaming bidirectional)

@@ -1,0 +1,4 @@
+# Phase 4'te doldurulacak. Beklenen .proto dosyaları:
+#   subscription.proto  — SubscriptionService (Get, Create, Cancel, ListInvoices)
+#   budget.proto        — BudgetService (Reserve, Settle, GetUsage)
+#   meter.proto         — MeterService (EmitUsageEvent, AggregateUsage)

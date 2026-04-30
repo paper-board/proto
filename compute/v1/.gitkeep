@@ -1,0 +1,2 @@
+# Phase 6'da doldurulacak. Beklenen:
+#   exec.proto  — ExecService (Run streaming bidirectional, Cancel, GetWorkspace)

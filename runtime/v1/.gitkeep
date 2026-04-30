@@ -1,0 +1,2 @@
+# Phase 5'te doldurulacak. Beklenen:
+#   runtime.proto  — RuntimeService (Invoke streaming, ScaleUp, ScaleDown, GetStatus)

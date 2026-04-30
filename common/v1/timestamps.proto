@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package paperboard.common.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/paper-board/proto/gen/go/common/v1;commonv1";
+
+// TimeRange is an inclusive-exclusive time window: [start, end).
+message TimeRange {
+  google.protobuf.Timestamp start = 1;
+  google.protobuf.Timestamp end = 2;
+  // IANA timezone for display (storage always UTC).
+  optional string timezone = 3;
+}

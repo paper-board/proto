@@ -1,0 +1,4 @@
+# Phase 4'te doldurulacak. Beklenen .proto dosyaları:
+#   audit.proto    — AuditService (Emit, Query, ExportRange)
+#   notify.proto   — NotifyService (Subscribe, Send, ListEmailEvents)
+#   webhook.proto  — WebhookService (CreateSubscription, ListDispatches, ReplayDLQ)

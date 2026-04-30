@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package paperboard.common.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/common/v1;commonv1";
+
+// UUID wraps a UUIDv4 / v7 string. Validation server-side (regex 8-4-4-4-12).
+// Wire format string for human-friendly debugging; alternative: bytes(16).
+message UUID {
+  string value = 1;
+}

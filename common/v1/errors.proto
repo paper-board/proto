@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package paperboard.common.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/common/v1;commonv1";
+
+// ErrorDetail is a structured error returned by services. Mapped from
+// paper-board/sdk/errors sentinel via codes.
+message ErrorDetail {
+  // Sentinel error code (matches sdk/errors).
+  // E.g., "not_found", "conflict", "unauthorized", "permission_denied".
+  string code = 1;
+
+  // Human-readable message (do not parse).
+  string message = 2;
+
+  // Optional structured fields for client-side handling.
+  map<string, string> fields = 3;
+
+  // Optional retry hint in seconds (for rate limited / unavailable).
+  optional int32 retry_after_seconds = 4;
+}
