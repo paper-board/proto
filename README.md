@@ -36,7 +36,7 @@ CI verifies `gen/` stays in sync with `.proto` sources.
 
 ## Phase 1.0b
 
-This repo is **skeleton-only** for Phase 1.0b — sadece `common/v1/*.proto` dolu, servis paketleri Phase 4'te doldurulacak. Versioning policy + buf config + CI yapısı şimdiden kuruluyor ki Phase 4'te servis ekleme ucuz olsun.
+This repo is **skeleton-only** for Phase 1.0b — only `common/v1/*.proto` is populated; service packages are filled in Phase 4. Versioning policy + buf config + CI scaffolding is set up now so that adding a service in Phase 4 is cheap.
 
 ## License
 
