@@ -1,4 +1,0 @@
-# Phase 4'te doldurulacak. Beklenen .proto dosyaları:
-#   auth.proto    — AuthService (RequestMagicLink, VerifyMagicLink, VerifyJWT, Refresh, Logout, RotateKey)
-#   tenant.proto  — TenantService (GetOrg, ListMembers, AddMember, RemoveMember, ListInvitations)
-#   rbac.proto    — RBACService (CheckPermission, AssignRole, RevokeRole, ListRoles)
