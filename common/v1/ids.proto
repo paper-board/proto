@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package paperboard.common.v1;
+package common.v1;
 
 option go_package = "github.com/paper-board/proto/gen/go/common/v1;commonv1";
 
