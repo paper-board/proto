@@ -1,0 +1,59 @@
+// Health is provided via the standard grpc.health.v1.Health.Check protocol; do not redefine.
+// ExecSession (bidi) deferred to Phase 5 per D24.
+
+syntax = "proto3";
+
+package runtime.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/runtime/v1;runtimev1";
+
+import "google/protobuf/timestamp.proto";
+
+service RuntimeService {
+  // Invoke forwards an agent prompt invocation through the runtime pod, streaming
+  // events back to the caller. Tenant context is propagated via gRPC metadata
+  // (x-tenant-id / x-org-id per ADR-0005) — not in the request body.
+  rpc Invoke (InvokeRequest) returns (stream InvokeEvent);
+}
+
+// InvokeRequest wraps an agent prompt invocation.
+// Tenant context propagated via gRPC metadata x-tenant-id / x-org-id (ADR-0005); not in request body.
+message InvokeRequest {
+  string             session_id  = 1;
+  string             request_id  = 2;
+  string             trace_id    = 3;
+  repeated PromptMessage messages = 4;
+}
+
+// PromptMessage mirrors the agents REST API message shape (role + content).
+message PromptMessage {
+  string role    = 1;
+  string content = 2;
+}
+
+// InvokeEvent is a server-streaming event returned by RuntimeService.Invoke.
+message InvokeEvent {
+  oneof event {
+    TextChunk   text_chunk  = 1;
+    TurnDone    turn_done   = 2;
+    InvokeError error       = 3;
+  }
+  google.protobuf.Timestamp emitted_at = 10;
+}
+
+// TextChunk carries a partial LLM text response.
+message TextChunk {
+  string content = 1;
+}
+
+// TurnDone signals the end of a successful invocation turn with token accounting.
+message TurnDone {
+  int32 tokens_in  = 1;
+  int32 tokens_out = 2;
+}
+
+// InvokeError signals a terminal error during invocation.
+message InvokeError {
+  string code    = 1;
+  string message = 2;
+}
