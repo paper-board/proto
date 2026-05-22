@@ -1,0 +1,171 @@
+// ExecSession (bidi) deferred to Phase 5 per D24.
+
+syntax = "proto3";
+
+package compute.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/compute/v1;computev1";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "common/v1/usage.proto";
+
+service ComputeService {
+  rpc CreateSandbox   (CreateSandboxRequest)   returns (CreateSandboxResponse);
+  rpc DestroySandbox  (DestroySandboxRequest)  returns (DestroySandboxResponse);
+  rpc DescribeSandbox (DescribeSandboxRequest) returns (DescribeSandboxResponse);
+
+  rpc ExecCommand (ExecCommandRequest) returns (stream ExecEvent);
+
+  rpc ReadFile  (ReadFileRequest)  returns (ReadFileResponse);
+  rpc WriteFile (WriteFileRequest) returns (WriteFileResponse);
+  rpc ListFiles (ListFilesRequest) returns (ListFilesResponse);
+
+  // Note: a bidirectional ExecSession(stream SessionInput) returns (stream SessionOutput)
+  // RPC will be added in Phase 5 as an additive (non-breaking) extension to this service
+  // for interactive REPL use cases (D24). It is intentionally NOT defined in v1 --
+  // message types, lifecycle, and cancellation semantics will be designed in the Phase 5
+  // brainstorm.
+}
+
+// ---- Sandbox lifecycle ----
+
+message CreateSandboxRequest {
+  string        tenant_id = 1;
+  string        session_id = 2;
+  string        image = 3;
+  WorkspaceSpec workspace = 4;
+  ResourceLimits limits = 5;
+}
+
+enum SandboxStatus {
+  SANDBOX_STATUS_UNSPECIFIED = 0;
+  SANDBOX_STATUS_STARTING = 1;
+  SANDBOX_STATUS_READY = 2;
+  SANDBOX_STATUS_FAILED = 3;
+  SANDBOX_STATUS_DESTROYED = 4;
+}
+
+message CreateSandboxResponse {
+  string                    sandbox_id = 1;
+  SandboxStatus             status = 2;
+  google.protobuf.Timestamp created_at = 3;
+}
+
+message WorkspaceSpec {
+  string storage_class = 1;
+  string size = 2;
+  string mount_path = 3;
+}
+
+message ResourceLimits {
+  uint32                   cpu_millis = 1;
+  uint64                   memory_bytes = 2;
+  google.protobuf.Duration max_runtime = 3;
+}
+
+message DestroySandboxRequest {
+  string sandbox_id = 1;
+}
+
+message DestroySandboxResponse {
+  string                   sandbox_id = 1;
+  google.protobuf.Duration total_uptime = 2;
+  common.v1.UsageMetrics   total_usage = 10;
+}
+
+message DescribeSandboxRequest {
+  string sandbox_id = 1;
+}
+
+message DescribeSandboxResponse {
+  string                    sandbox_id = 1;
+  SandboxStatus             status = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Duration  current_uptime = 4;
+  common.v1.UsageMetrics    current_usage = 10;
+}
+
+// ---- Exec ----
+
+message ExecCommandRequest {
+  string                   sandbox_id = 1;
+  string                   command = 2;
+  repeated string          args = 3;
+  map<string, string>      env = 4;
+  string                   working_dir = 5;
+  google.protobuf.Duration timeout = 6;
+}
+
+message ExecEvent {
+  oneof event {
+    StdoutLine    stdout    = 1;
+    StderrLine    stderr    = 2;
+    ExecCompleted completed = 3;
+  }
+  google.protobuf.Timestamp emitted_at = 10;
+}
+
+message StdoutLine {
+  bytes data = 1;
+}
+
+message StderrLine {
+  bytes data = 1;
+}
+
+message ExecCompleted {
+  int32                    exit_code = 1;
+  google.protobuf.Duration wall_time = 2;
+  bool                     cancelled = 3;
+  common.v1.UsageMetrics   usage = 10;
+}
+
+// ---- Workspace I/O (path policy: see design doc §8) ----
+// All paths MUST be under WorkspaceSpec.mount_path; symlink escapes rejected.
+// Read/Write capped at 16 MiB per call. ListFiles defaults to 1000 entries.
+
+message ReadFileRequest {
+  string sandbox_id = 1;
+  string path = 2;
+  int64  offset = 3;
+  int64  max_bytes = 4;
+}
+
+message ReadFileResponse {
+  bytes data = 1;
+  int64 total_size = 2;
+  bool  eof = 3;
+}
+
+message WriteFileRequest {
+  string sandbox_id = 1;
+  string path = 2;
+  bytes  data = 3;
+  bool   append = 4;
+  uint32 mode = 5;
+}
+
+message WriteFileResponse {
+  int64 bytes_written = 1;
+}
+
+message ListFilesRequest {
+  string sandbox_id = 1;
+  string path = 2;
+  bool   recursive = 3;
+  uint32 max_entries = 4;
+}
+
+message ListFilesResponse {
+  repeated FileEntry entries = 1;
+  bool               truncated = 2;
+}
+
+message FileEntry {
+  string                    path = 1;
+  uint64                    size = 2;
+  bool                      is_dir = 3;
+  uint32                    mode = 4;
+  google.protobuf.Timestamp modified_at = 5;
+}
