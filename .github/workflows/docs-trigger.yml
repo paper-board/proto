@@ -1,0 +1,24 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+  pull_request:
+    paths:
+      - "docs/**"
+
+jobs:
+  lint-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check markdown files exist
+        run: |
+          for f in docs/index.md docs/api-reference.md docs/operations.md; do
+            if [[ ! -f "$f" ]]; then
+              echo "Missing required docs file: $f"
+              exit 1
+            fi
+          done
