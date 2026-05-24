@@ -4,7 +4,7 @@
 
 ## Package map
 
-```
+```text
 paper-board/proto
 ├── common/v1      — shared messages: ErrorDetail, UsageMetrics, paging, IDs, timestamps
 ├── identity/v1    — AuthService (VerifyAPIKey, VerifyJWT, IssueJWT, GetPublicKey)
