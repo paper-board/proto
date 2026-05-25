@@ -1,0 +1,65 @@
+// audit/v1/audit.proto — Centralized event log ingestion and query API.
+// Stream rpc is deferred to Phase 7+ admin tail (D7.4).
+
+syntax = "proto3";
+
+package paperboard.audit.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/audit/v1;auditv1";
+
+import "google/protobuf/timestamp.proto";
+
+service AuditService {
+  rpc Emit(EmitRequest) returns (EmitResponse);
+  rpc Query(QueryRequest) returns (QueryResponse);
+  rpc GetEvent(GetEventRequest) returns (Event);
+}
+
+message Event {
+  string event_id = 1;
+  // Format: "user:<uuid>" | "svc:<service-name>" | "" (system-internal events).
+  string actor_id = 2;
+  // Tenancy scope.
+  string org_id = 3;
+  // D7.2 taxonomy, e.g. "auth.login", "agent.created".
+  string event_kind = 4;
+  // Optional, e.g. "agent", "vault".
+  string resource_type = 5;
+  // Optional UUID.
+  string resource_id = 6;
+  // protojson of event-specific message.
+  bytes payload = 7;
+  google.protobuf.Timestamp occurred_at = 8;
+  string trace_id = 9;
+}
+
+message EmitRequest {
+  Event event = 1;
+}
+
+message EmitResponse {
+  string event_id = 1;
+}
+
+message QueryRequest {
+  // Required.
+  string org_id = 1;
+  // D7.4 prefix match, e.g. "agent." matches all agent.* events.
+  optional string event_kind_prefix = 2;
+  optional string actor_id = 3;
+  optional string resource_id = 4;
+  google.protobuf.Timestamp from = 5;
+  google.protobuf.Timestamp to = 6;
+  // Server cap: 1000 (D7.4).
+  int32 limit = 7;
+  string page_token = 8;
+}
+
+message QueryResponse {
+  repeated Event events = 1;
+  string next_page_token = 2;
+}
+
+message GetEventRequest {
+  string event_id = 1;
+}

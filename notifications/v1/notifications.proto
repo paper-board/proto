@@ -1,0 +1,38 @@
+// notifications/v1/notifications.proto — Outbound notification gateway.
+// template_id is an open string validated server-side against a Helm ConfigMap allowlist.
+// Phase 4 ships EMAIL only; SMS/push/in-app channels are Phase 6+.
+
+syntax = "proto3";
+
+package paperboard.notifications.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/notifications/v1;notificationsv1";
+
+service NotificationsService {
+  rpc Send(SendRequest) returns (SendResponse);
+}
+
+enum Channel {
+  CHANNEL_UNSPECIFIED = 0;
+  CHANNEL_EMAIL = 1;
+  // CHANNEL_SMS = 2;    // Phase 6+
+  // CHANNEL_PUSH = 3;   // Phase 6+
+  // CHANNEL_INAPP = 4;  // Phase 6+
+}
+
+message SendRequest {
+  Channel channel = 1;
+  // Validated server-side against ConfigMap allowlist.
+  // Phase 4 templates: welcome, onboarding_completed, onboarding_failed, onboarding_dlq_moved.
+  string template_id = 2;
+  // CHANNEL_EMAIL: email address; other channels return UNIMPLEMENTED in Phase 4.
+  string to = 3;
+  map<string, string> params = 4;
+  // Deduplicate within a 24-hour window.
+  string idempotency_key = 5;
+}
+
+message SendResponse {
+  string notification_id = 1;
+  bool deduplicated = 2;
+}
