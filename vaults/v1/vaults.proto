@@ -1,0 +1,101 @@
+// vaults/v1/vaults.proto — Encrypted credentials store.
+// CredentialType is a closed enum.
+// ListCredentials returns Credential with value cleared (server-side convention).
+// GetCredential returns plaintext — Phase 4 pre-mTLS gate: NetworkPolicy + x-service-account allowlist.
+
+syntax = "proto3";
+
+package paperboard.vaults.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/vaults/v1;vaultsv1";
+
+import "google/protobuf/timestamp.proto";
+
+service VaultsService {
+  rpc CreateVault(CreateVaultRequest) returns (CreateVaultResponse);
+  rpc GetVault(GetVaultRequest) returns (GetVaultResponse);
+  rpc SetCredential(SetCredentialRequest) returns (SetCredentialResponse);
+  // Returns plaintext value. Phase 4 gate: caller must be svc:compute or svc:runtime.
+  rpc GetCredential(GetCredentialRequest) returns (GetCredentialResponse);
+  // Returns Credential messages with value field cleared.
+  rpc ListCredentials(ListCredentialsRequest) returns (ListCredentialsResponse);
+  rpc DeleteCredential(DeleteCredentialRequest) returns (DeleteCredentialResponse);
+}
+
+// Closed enum. New credential types require a proto version bump.
+enum CredentialType {
+  CREDENTIAL_TYPE_UNSPECIFIED = 0;
+  CREDENTIAL_TYPE_ANTHROPIC_API_KEY = 1;
+  CREDENTIAL_TYPE_OPENAI_API_KEY = 2;    // Phase 6+ but proto-included now
+  CREDENTIAL_TYPE_GOOGLE_API_KEY = 3;    // Phase 6+
+  CREDENTIAL_TYPE_OAUTH_TOKEN = 4;       // Phase 6+
+}
+
+message Vault {
+  string id = 1;
+  string org_id = 2;
+  string name = 3;
+  google.protobuf.Timestamp created_at = 4;
+}
+
+message Credential {
+  string id = 1;
+  string vault_id = 2;
+  CredentialType type = 3;
+  // Plaintext from GetCredential; empty string in ListCredentials response.
+  string value = 4;
+  string label = 5;
+  google.protobuf.Timestamp created_at = 6;
+}
+
+message CreateVaultRequest {
+  string org_id = 1;
+  string name = 2;
+}
+
+message CreateVaultResponse {
+  Vault vault = 1;
+}
+
+message GetVaultRequest {
+  string id = 1;
+}
+
+message GetVaultResponse {
+  Vault vault = 1;
+}
+
+message SetCredentialRequest {
+  string vault_id = 1;
+  CredentialType type = 2;
+  // GCP KMS envelope encryption applied at rest by vaults service (Wave 2 PB-78).
+  string value = 3;
+  string label = 4;
+}
+
+message SetCredentialResponse {
+  Credential credential = 1;
+}
+
+message GetCredentialRequest {
+  string id = 1;
+}
+
+message GetCredentialResponse {
+  Credential credential = 1;
+}
+
+message ListCredentialsRequest {
+  string vault_id = 1;
+}
+
+message ListCredentialsResponse {
+  // value field is cleared in each Credential before return.
+  repeated Credential credentials = 1;
+}
+
+message DeleteCredentialRequest {
+  string id = 1;
+}
+
+message DeleteCredentialResponse {}

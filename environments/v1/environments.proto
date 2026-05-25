@@ -1,0 +1,90 @@
+// environments/v1/environments.proto — Container config + non-sensitive env vars.
+// env_vars limits enforced server-side: max 100 entries, key ^[A-Z_][A-Z0-9_]*$, value max 4 KiB.
+
+syntax = "proto3";
+
+package paperboard.environments.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/environments/v1;environmentsv1";
+
+import "google/protobuf/timestamp.proto";
+
+service EnvironmentsService {
+  rpc CreateEnvironment(CreateEnvironmentRequest) returns (CreateEnvironmentResponse);
+  rpc GetEnvironment(GetEnvironmentRequest) returns (GetEnvironmentResponse);
+  rpc ListEnvironments(ListEnvironmentsRequest) returns (ListEnvironmentsResponse);
+  rpc UpdateEnvironment(UpdateEnvironmentRequest) returns (UpdateEnvironmentResponse);
+  rpc DeleteEnvironment(DeleteEnvironmentRequest) returns (DeleteEnvironmentResponse);
+}
+
+message Environment {
+  string id = 1;
+  string org_id = 2;
+  string name = 3;
+  EnvironmentConfig config = 4;
+  // Non-sensitive KEY=VALUE pairs.
+  map<string, string> env_vars = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message EnvironmentConfig {
+  // Runtime images, e.g. ["python:3.12", "node:20"].
+  repeated string runtime = 1;
+  repeated string python_packages = 2;
+  repeated string node_packages = 3;
+  repeated string system_packages = 4;
+  NetworkPolicy network_policy = 5;
+}
+
+message NetworkPolicy {
+  // Outbound internet disabled by default.
+  bool allow_outbound = 1;
+  repeated string allowed_hosts = 2;
+}
+
+message CreateEnvironmentRequest {
+  string org_id = 1;
+  string name = 2;
+  EnvironmentConfig config = 3;
+  map<string, string> env_vars = 4;
+}
+
+message CreateEnvironmentResponse {
+  Environment environment = 1;
+}
+
+message GetEnvironmentRequest {
+  string id = 1;
+}
+
+message GetEnvironmentResponse {
+  Environment environment = 1;
+}
+
+message ListEnvironmentsRequest {
+  string org_id = 1;
+  int32 limit = 2;
+  string page_token = 3;
+}
+
+message ListEnvironmentsResponse {
+  repeated Environment environments = 1;
+  string next_page_token = 2;
+}
+
+message UpdateEnvironmentRequest {
+  string id = 1;
+  EnvironmentConfig config = 2;
+  map<string, string> env_vars = 3;
+}
+
+message UpdateEnvironmentResponse {
+  Environment environment = 1;
+}
+
+message DeleteEnvironmentRequest {
+  string id = 1;
+}
+
+message DeleteEnvironmentResponse {}

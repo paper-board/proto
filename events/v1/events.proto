@@ -1,0 +1,148 @@
+// events/v1/events.proto — Outbox envelope (D6.3) + 8 Phase 4 payload messages.
+// Wire format: protojson(Envelope) written to Redis stream field "data".
+
+syntax = "proto3";
+
+package paperboard.events.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/events/v1;eventsv1";
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+// Envelope wraps every outbox event on Redis Streams.
+// XADD field "data" carries protojson(Envelope).
+message Envelope {
+  // UUID — matches outbox_events.event_id.
+  string event_id = 1;
+  // Closed list per §3.4.3: "identity.user.created", "onboarding.completed", etc.
+  string event_type = 2;
+  // Emitter service name; closed list per §3.4.3.
+  string source_service = 3;
+  google.protobuf.Timestamp occurred_at = 4;
+  string trace_id = 5;
+  // Tenancy scope; empty allowed only for identity.user.created (pre-org).
+  string org_id = 6;
+  // One of the 8 payload messages defined below.
+  google.protobuf.Any payload = 7;
+  // Payload schema version; starts at 1 in Wave 1.
+  int32 schema_version = 8;
+}
+
+// ---- Payload messages ----
+
+// Emitted by identity service when a new user registers.
+message UserCreated {
+  string user_id = 1;
+  string email = 2;
+  string display_name = 3;
+  // Open vocabulary: "password", "oauth_google", etc.
+  string auth_provider = 4;
+  google.protobuf.Timestamp emitted_at = 5;
+}
+
+// Emitted by onboarding service when the full provisioning flow succeeds.
+message OnboardingCompleted {
+  string user_id = 1;
+  string org_id = 2;
+  string vault_id = 3;
+  string env_id = 4;
+  string agent_id = 5;
+  google.protobuf.Timestamp started_at = 6;
+  google.protobuf.Timestamp emitted_at = 7;
+}
+
+// Emitted by onboarding service when a provisioning step fails (retriable).
+message OnboardingFailed {
+  string user_id = 1;
+  // Empty if STEP_ORG_CREATE failed (org not yet created).
+  string org_id = 2;
+  // UPPER_SNAKE name of the onboarding.v1.Step enum value, e.g. "STEP_VAULT_PROVISION".
+  // String (not enum) to avoid an events/v1 → onboarding/v1 import cycle.
+  string last_step = 3;
+  // UPPERCASE gRPC code string from sdk/errors.CodeString, e.g. "UNAVAILABLE".
+  string error_code = 4;
+  string error_message = 5;
+  int32 attempts = 6;
+  google.protobuf.Timestamp emitted_at = 7;
+}
+
+// Emitted by onboarding service when an event is promoted to the dead-letter queue.
+message OnboardingDLQMoved {
+  string user_id = 1;
+  // Empty if STEP_ORG_CREATE failed (org not yet created).
+  string org_id = 2;
+  // UPPER_SNAKE name of the onboarding.v1.Step enum value; see OnboardingFailed.last_step.
+  string last_step = 3;
+  string final_error_message = 4;
+  int32 attempts = 5;
+  google.protobuf.Timestamp emitted_at = 6;
+}
+
+// Emitted by runtime service when an agent session begins.
+message SessionStarted {
+  string session_id = 1;
+  string org_id = 2;
+  string user_id = 3;
+  string agent_id = 4;
+  string env_id = 5;
+  google.protobuf.Timestamp started_at = 6;
+  google.protobuf.Timestamp emitted_at = 7;
+}
+
+// Reason a session was terminated.
+enum TerminationReason {
+  TERMINATION_REASON_UNSPECIFIED = 0;
+  TERMINATION_REASON_USER_QUIT = 1;
+  TERMINATION_REASON_TIMEOUT = 2;
+  TERMINATION_REASON_ERROR = 3;
+  TERMINATION_REASON_SYSTEM_SHUTDOWN = 4;
+}
+
+// Emitted by runtime service when an agent session ends.
+message SessionEnded {
+  string session_id = 1;
+  string org_id = 2;
+  string user_id = 3;
+  string agent_id = 4;
+  google.protobuf.Timestamp started_at = 5;
+  google.protobuf.Timestamp ended_at = 6;
+  int64 duration_seconds = 7;
+  TerminationReason reason = 8;
+  google.protobuf.Timestamp emitted_at = 9;
+}
+
+// Emitted by agents service after each LLM invocation.
+message LLMTokenEmitted {
+  string session_id = 1;
+  string org_id = 2;
+  string user_id = 3;
+  string agent_id = 4;
+  // Open vocab; emitter normalizes to lowercase canonical Anthropic SDK spelling.
+  string model = 5;
+  int32 input_tokens = 6;
+  int32 output_tokens = 7;
+  int32 cache_read_tokens = 8;
+  int32 cache_write_tokens = 9;
+  google.protobuf.Timestamp emitted_at = 10;
+}
+
+// Emitted by compute service on sandbox lifecycle transitions.
+message SandboxLifecycle {
+  // Phase of the sandbox lifecycle transition.
+  enum Phase {
+    PHASE_UNSPECIFIED = 0;
+    PHASE_PROVISIONED = 1;
+    PHASE_READY = 2;
+    PHASE_TERMINATED = 3;
+    PHASE_FAILED = 4;
+  }
+
+  string sandbox_id = 1;
+  string session_id = 2;
+  string org_id = 3;
+  Phase phase = 4;
+  // Free-form; populated for PHASE_FAILED and PHASE_TERMINATED.
+  string reason = 5;
+  google.protobuf.Timestamp emitted_at = 6;
+}

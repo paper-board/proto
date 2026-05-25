@@ -1,0 +1,91 @@
+// metering/v1/metering.proto — Usage event ingestion and rollup query API.
+// Metric enum is closed (D10 Phase 4 minimum set).
+
+syntax = "proto3";
+
+package paperboard.metering.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/metering/v1;meteringv1";
+
+import "google/protobuf/timestamp.proto";
+
+service MeteringService {
+  rpc Emit(EmitRequest) returns (EmitResponse);
+  rpc GetHourly(GetHourlyRequest) returns (GetHourlyResponse);
+  rpc GetDaily(GetDailyRequest) returns (GetDailyResponse);
+  rpc GetMonthly(GetMonthlyRequest) returns (GetMonthlyResponse);
+}
+
+// Closed enum — Phase 4 minimum. New values require a proto version bump.
+enum Metric {
+  METRIC_UNSPECIFIED = 0;
+  METRIC_LLM_INPUT_TOKENS = 1;
+  METRIC_LLM_OUTPUT_TOKENS = 2;
+  METRIC_LLM_CACHE_READ_TOKENS = 3;
+  METRIC_LLM_CACHE_WRITE_TOKENS = 4;
+  METRIC_SANDBOX_CPU_SECONDS = 5;
+  METRIC_SANDBOX_MEMORY_GB_SECONDS = 6;
+  METRIC_SANDBOX_WALL_SECONDS = 7;
+  METRIC_STORAGE_GB_HOURS = 8;
+  METRIC_NETWORK_EGRESS_BYTES = 9;
+}
+
+message Usage {
+  string org_id = 1;
+  string user_id = 2;
+  Metric metric = 3;
+  int64 value = 4;
+  google.protobuf.Timestamp occurred_at = 5;
+}
+
+message EmitRequest {
+  Usage usage = 1;
+}
+
+message EmitResponse {
+  string event_id = 1;
+}
+
+message RollupBucket {
+  google.protobuf.Timestamp bucket_start = 1;
+  int64 value = 2;
+}
+
+message GetHourlyRequest {
+  string org_id = 1;
+  Metric metric = 2;
+  google.protobuf.Timestamp from = 3;
+  google.protobuf.Timestamp to = 4;
+}
+
+message GetHourlyResponse {
+  string org_id = 1;
+  Metric metric = 2;
+  repeated RollupBucket buckets = 3;
+}
+
+message GetDailyRequest {
+  string org_id = 1;
+  Metric metric = 2;
+  google.protobuf.Timestamp from = 3;
+  google.protobuf.Timestamp to = 4;
+}
+
+message GetDailyResponse {
+  string org_id = 1;
+  Metric metric = 2;
+  repeated RollupBucket buckets = 3;
+}
+
+message GetMonthlyRequest {
+  string org_id = 1;
+  Metric metric = 2;
+  google.protobuf.Timestamp from = 3;
+  google.protobuf.Timestamp to = 4;
+}
+
+message GetMonthlyResponse {
+  string org_id = 1;
+  Metric metric = 2;
+  repeated RollupBucket buckets = 3;
+}

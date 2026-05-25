@@ -1,0 +1,64 @@
+// onboarding/v1/onboarding.proto — Cross-service provisioning orchestrator API.
+// Status carries full per-step IDs for partial-provision visibility.
+
+syntax = "proto3";
+
+package paperboard.onboarding.v1;
+
+option go_package = "github.com/paper-board/proto/gen/go/onboarding/v1;onboardingv1";
+
+import "google/protobuf/timestamp.proto";
+
+service OnboardingService {
+  rpc GetStatus(GetStatusRequest) returns (Status);
+  // DLQ replay — re-enqueue a dead-lettered onboarding event.
+  rpc Retry(RetryRequest) returns (RetryResponse);
+}
+
+enum Step {
+  STEP_UNSPECIFIED = 0;
+  STEP_ORG_CREATE = 1;
+  STEP_VAULT_PROVISION = 2;
+  STEP_ENV_PROVISION = 3;
+  STEP_AGENT_SEED = 4;
+  STEP_COMPLETE = 5;
+}
+
+enum StatusState {
+  STATUS_STATE_UNSPECIFIED = 0;
+  STATUS_STATE_PENDING = 1;
+  STATUS_STATE_IN_PROGRESS = 2;
+  STATUS_STATE_COMPLETED = 3;
+  STATUS_STATE_FAILED = 4;
+  STATUS_STATE_DEAD_LETTER = 5;
+}
+
+message Status {
+  string user_id = 1;
+  // Empty before STEP_ORG_CREATE completes.
+  string org_id = 2;
+  // Empty before STEP_VAULT_PROVISION completes.
+  string vault_id = 3;
+  // Empty before STEP_ENV_PROVISION completes.
+  string env_id = 4;
+  // Empty before STEP_AGENT_SEED completes.
+  string agent_id = 5;
+  StatusState state = 6;
+  Step current_step = 7;
+  string last_error = 8;
+  int32 attempts = 9;
+  google.protobuf.Timestamp started_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+}
+
+message GetStatusRequest {
+  string user_id = 1;
+}
+
+message RetryRequest {
+  string user_id = 1;
+}
+
+message RetryResponse {
+  Status status = 1;
+}
