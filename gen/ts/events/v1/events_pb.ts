@@ -15,7 +15,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file events/v1/events.proto.
  */
 export const file_events_v1_events: GenFile = /*@__PURE__*/
-  fileDesc("ChZldmVudHMvdjEvZXZlbnRzLnByb3RvEhRwYXBlcmJvYXJkLmV2ZW50cy52MSLaAQoIRW52ZWxvcGUSEAoIZXZlbnRfaWQYASABKAkSEgoKZXZlbnRfdHlwZRgCIAEoCRIWCg5zb3VyY2Vfc2VydmljZRgDIAEoCRIvCgtvY2N1cnJlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASEAoIdHJhY2VfaWQYBSABKAkSDgoGb3JnX2lkGAYgASgJEiUKB3BheWxvYWQYByABKAsyFC5nb29nbGUucHJvdG9idWYuQW55EhYKDnNjaGVtYV92ZXJzaW9uGAggASgFIooBCgtVc2VyQ3JlYXRlZBIPCgd1c2VyX2lkGAEgASgJEg0KBWVtYWlsGAIgASgJEhQKDGRpc3BsYXlfbmFtZRgDIAEoCRIVCg1hdXRoX3Byb3ZpZGVyGAQgASgJEi4KCmVtaXR0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIsoBChNPbmJvYXJkaW5nQ29tcGxldGVkEg8KB3VzZXJfaWQYASABKAkSDgoGb3JnX2lkGAIgASgJEhAKCHZhdWx0X2lkGAMgASgJEg4KBmVudl9pZBgEIAEoCRIQCghhZ2VudF9pZBgFIAEoCRIuCgpzdGFydGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgplbWl0dGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKzAQoQT25ib2FyZGluZ0ZhaWxlZBIPCgd1c2VyX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRIRCglsYXN0X3N0ZXAYAyABKAkSEgoKZXJyb3JfY29kZRgEIAEoCRIVCg1lcnJvcl9tZXNzYWdlGAUgASgJEhAKCGF0dGVtcHRzGAYgASgFEi4KCmVtaXR0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIqcBChJPbmJvYXJkaW5nRExRTW92ZWQSDwoHdXNlcl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSEQoJbGFzdF9zdGVwGAMgASgJEhsKE2ZpbmFsX2Vycm9yX21lc3NhZ2UYBCABKAkSEAoIYXR0ZW1wdHMYBSABKAUSLgoKZW1pdHRlZF9hdBgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAixwEKDlNlc3Npb25TdGFydGVkEhIKCnNlc3Npb25faWQYASABKAkSDgoGb3JnX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSEAoIYWdlbnRfaWQYBCABKAkSDgoGZW52X2lkGAUgASgJEi4KCnN0YXJ0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmVtaXR0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIrYCCgxTZXNzaW9uRW5kZWQSEgoKc2Vzc2lvbl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSDwoHdXNlcl9pZBgDIAEoCRIQCghhZ2VudF9pZBgEIAEoCRIuCgpzdGFydGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIsCghlbmRlZF9hdBgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASGAoQZHVyYXRpb25fc2Vjb25kcxgHIAEoAxI3CgZyZWFzb24YCCABKA4yJy5wYXBlcmJvYXJkLmV2ZW50cy52MS5UZXJtaW5hdGlvblJlYXNvbhIuCgplbWl0dGVkX2F0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCL7AQoPTExNVG9rZW5FbWl0dGVkEhIKCnNlc3Npb25faWQYASABKAkSDgoGb3JnX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSEAoIYWdlbnRfaWQYBCABKAkSDQoFbW9kZWwYBSABKAkSFAoMaW5wdXRfdG9rZW5zGAYgASgFEhUKDW91dHB1dF90b2tlbnMYByABKAUSGQoRY2FjaGVfcmVhZF90b2tlbnMYCCABKAUSGgoSY2FjaGVfd3JpdGVfdG9rZW5zGAkgASgFEi4KCmVtaXR0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIrcCChBTYW5kYm94TGlmZWN5Y2xlEhIKCnNhbmRib3hfaWQYASABKAkSEgoKc2Vzc2lvbl9pZBgCIAEoCRIOCgZvcmdfaWQYAyABKAkSOwoFcGhhc2UYBCABKA4yLC5wYXBlcmJvYXJkLmV2ZW50cy52MS5TYW5kYm94TGlmZWN5Y2xlLlBoYXNlEg4KBnJlYXNvbhgFIAEoCRIuCgplbWl0dGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJuCgVQaGFzZRIVChFQSEFTRV9VTlNQRUNJRklFRBAAEhUKEVBIQVNFX1BST1ZJU0lPTkVEEAESDwoLUEhBU0VfUkVBRFkQAhIUChBQSEFTRV9URVJNSU5BVEVEEAMSEAoMUEhBU0VfRkFJTEVEEAQqvwEKEVRlcm1pbmF0aW9uUmVhc29uEiIKHlRFUk1JTkFUSU9OX1JFQVNPTl9VTlNQRUNJRklFRBAAEiAKHFRFUk1JTkFUSU9OX1JFQVNPTl9VU0VSX1FVSVQQARIeChpURVJNSU5BVElPTl9SRUFTT05fVElNRU9VVBACEhwKGFRFUk1JTkFUSU9OX1JFQVNPTl9FUlJPUhADEiYKIlRFUk1JTkFUSU9OX1JFQVNPTl9TWVNURU1fU0hVVERPV04QBELRAQoYY29tLnBhcGVyYm9hcmQuZXZlbnRzLnYxQgtFdmVudHNQcm90b1ABWjZnaXRodWIuY29tL3BhcGVyLWJvYXJkL3Byb3RvL2dlbi9nby9ldmVudHMvdjE7ZXZlbnRzdjGiAgNQRViqAhRQYXBlcmJvYXJkLkV2ZW50cy5WMcoCFFBhcGVyYm9hcmRcRXZlbnRzXFYx4gIgUGFwZXJib2FyZFxFdmVudHNcVjFcR1BCTWV0YWRhdGHqAhZQYXBlcmJvYXJkOjpFdmVudHM6OlYxYgZwcm90bzM", [file_google_protobuf_any, file_google_protobuf_timestamp]);
+  fileDesc("ChZldmVudHMvdjEvZXZlbnRzLnByb3RvEhRwYXBlcmJvYXJkLmV2ZW50cy52MSLaAQoIRW52ZWxvcGUSEAoIZXZlbnRfaWQYASABKAkSEgoKZXZlbnRfdHlwZRgCIAEoCRIWCg5zb3VyY2Vfc2VydmljZRgDIAEoCRIvCgtvY2N1cnJlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASEAoIdHJhY2VfaWQYBSABKAkSDgoGb3JnX2lkGAYgASgJEiUKB3BheWxvYWQYByABKAsyFC5nb29nbGUucHJvdG9idWYuQW55EhYKDnNjaGVtYV92ZXJzaW9uGAggASgFIooBCgtVc2VyQ3JlYXRlZBIPCgd1c2VyX2lkGAEgASgJEg0KBWVtYWlsGAIgASgJEhQKDGRpc3BsYXlfbmFtZRgDIAEoCRIVCg1hdXRoX3Byb3ZpZGVyGAQgASgJEi4KCmVtaXR0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wInEKCVVzZXJMb2dpbhIPCgd1c2VyX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRITCgthdXRoX21ldGhvZBgDIAEoCRIuCgplbWl0dGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJtCgpVc2VyTG9nb3V0Eg8KB3VzZXJfaWQYASABKAkSDgoGb3JnX2lkGAIgASgJEg4KBnJlYXNvbhgDIAEoCRIuCgplbWl0dGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ4ChFVc2VyQXBpS2V5Um90YXRlZBIPCgd1c2VyX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRISCgphcGlfa2V5X2lkGAMgASgJEi4KCmVtaXR0ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIsoBChNPbmJvYXJkaW5nQ29tcGxldGVkEg8KB3VzZXJfaWQYASABKAkSDgoGb3JnX2lkGAIgASgJEhAKCHZhdWx0X2lkGAMgASgJEg4KBmVudl9pZBgEIAEoCRIQCghhZ2VudF9pZBgFIAEoCRIuCgpzdGFydGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgplbWl0dGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKzAQoQT25ib2FyZGluZ0ZhaWxlZBIPCgd1c2VyX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRIRCglsYXN0X3N0ZXAYAyABKAkSEgoKZXJyb3JfY29kZRgEIAEoCRIVCg1lcnJvcl9tZXNzYWdlGAUgASgJEhAKCGF0dGVtcHRzGAYgASgFEi4KCmVtaXR0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIqcBChJPbmJvYXJkaW5nRExRTW92ZWQSDwoHdXNlcl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSEQoJbGFzdF9zdGVwGAMgASgJEhsKE2ZpbmFsX2Vycm9yX21lc3NhZ2UYBCABKAkSEAoIYXR0ZW1wdHMYBSABKAUSLgoKZW1pdHRlZF9hdBgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAixwEKDlNlc3Npb25TdGFydGVkEhIKCnNlc3Npb25faWQYASABKAkSDgoGb3JnX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSEAoIYWdlbnRfaWQYBCABKAkSDgoGZW52X2lkGAUgASgJEi4KCnN0YXJ0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmVtaXR0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIrYCCgxTZXNzaW9uRW5kZWQSEgoKc2Vzc2lvbl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSDwoHdXNlcl9pZBgDIAEoCRIQCghhZ2VudF9pZBgEIAEoCRIuCgpzdGFydGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIsCghlbmRlZF9hdBgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASGAoQZHVyYXRpb25fc2Vjb25kcxgHIAEoAxI3CgZyZWFzb24YCCABKA4yJy5wYXBlcmJvYXJkLmV2ZW50cy52MS5UZXJtaW5hdGlvblJlYXNvbhIuCgplbWl0dGVkX2F0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCL7AQoPTExNVG9rZW5FbWl0dGVkEhIKCnNlc3Npb25faWQYASABKAkSDgoGb3JnX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSEAoIYWdlbnRfaWQYBCABKAkSDQoFbW9kZWwYBSABKAkSFAoMaW5wdXRfdG9rZW5zGAYgASgFEhUKDW91dHB1dF90b2tlbnMYByABKAUSGQoRY2FjaGVfcmVhZF90b2tlbnMYCCABKAUSGgoSY2FjaGVfd3JpdGVfdG9rZW5zGAkgASgFEi4KCmVtaXR0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIrcCChBTYW5kYm94TGlmZWN5Y2xlEhIKCnNhbmRib3hfaWQYASABKAkSEgoKc2Vzc2lvbl9pZBgCIAEoCRIOCgZvcmdfaWQYAyABKAkSOwoFcGhhc2UYBCABKA4yLC5wYXBlcmJvYXJkLmV2ZW50cy52MS5TYW5kYm94TGlmZWN5Y2xlLlBoYXNlEg4KBnJlYXNvbhgFIAEoCRIuCgplbWl0dGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJuCgVQaGFzZRIVChFQSEFTRV9VTlNQRUNJRklFRBAAEhUKEVBIQVNFX1BST1ZJU0lPTkVEEAESDwoLUEhBU0VfUkVBRFkQAhIUChBQSEFTRV9URVJNSU5BVEVEEAMSEAoMUEhBU0VfRkFJTEVEEAQqvwEKEVRlcm1pbmF0aW9uUmVhc29uEiIKHlRFUk1JTkFUSU9OX1JFQVNPTl9VTlNQRUNJRklFRBAAEiAKHFRFUk1JTkFUSU9OX1JFQVNPTl9VU0VSX1FVSVQQARIeChpURVJNSU5BVElPTl9SRUFTT05fVElNRU9VVBACEhwKGFRFUk1JTkFUSU9OX1JFQVNPTl9FUlJPUhADEiYKIlRFUk1JTkFUSU9OX1JFQVNPTl9TWVNURU1fU0hVVERPV04QBELRAQoYY29tLnBhcGVyYm9hcmQuZXZlbnRzLnYxQgtFdmVudHNQcm90b1ABWjZnaXRodWIuY29tL3BhcGVyLWJvYXJkL3Byb3RvL2dlbi9nby9ldmVudHMvdjE7ZXZlbnRzdjGiAgNQRViqAhRQYXBlcmJvYXJkLkV2ZW50cy5WMcoCFFBhcGVyYm9hcmRcRXZlbnRzXFYx4gIgUGFwZXJib2FyZFxFdmVudHNcVjFcR1BCTWV0YWRhdGHqAhZQYXBlcmJvYXJkOjpFdmVudHM6OlYxYgZwcm90bzM", [file_google_protobuf_any, file_google_protobuf_timestamp]);
 
 /**
  * Envelope wraps every outbox event on Redis Streams.
@@ -126,6 +126,113 @@ export const UserCreatedSchema: GenMessage<UserCreated> = /*@__PURE__*/
   messageDesc(file_events_v1_events, 1);
 
 /**
+ * Emitted by identity service when a user authenticates successfully.
+ *
+ * @generated from message paperboard.events.v1.UserLogin
+ */
+export type UserLogin = Message<"paperboard.events.v1.UserLogin"> & {
+  /**
+   * @generated from field: string user_id = 1;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string org_id = 2;
+   */
+  orgId: string;
+
+  /**
+   * Open vocabulary: "password", "api_key", "refresh_token".
+   *
+   * @generated from field: string auth_method = 3;
+   */
+  authMethod: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp emitted_at = 4;
+   */
+  emittedAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message paperboard.events.v1.UserLogin.
+ * Use `create(UserLoginSchema)` to create a new message.
+ */
+export const UserLoginSchema: GenMessage<UserLogin> = /*@__PURE__*/
+  messageDesc(file_events_v1_events, 2);
+
+/**
+ * Emitted by identity service when a user's refresh-token family is revoked
+ * (explicit logout or revoke-all).
+ *
+ * @generated from message paperboard.events.v1.UserLogout
+ */
+export type UserLogout = Message<"paperboard.events.v1.UserLogout"> & {
+  /**
+   * @generated from field: string user_id = 1;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string org_id = 2;
+   */
+  orgId: string;
+
+  /**
+   * "logout" or "revoke_all".
+   *
+   * @generated from field: string reason = 3;
+   */
+  reason: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp emitted_at = 4;
+   */
+  emittedAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message paperboard.events.v1.UserLogout.
+ * Use `create(UserLogoutSchema)` to create a new message.
+ */
+export const UserLogoutSchema: GenMessage<UserLogout> = /*@__PURE__*/
+  messageDesc(file_events_v1_events, 3);
+
+/**
+ * Emitted by identity service when an API key is soft-deleted (rotated/revoked).
+ *
+ * @generated from message paperboard.events.v1.UserApiKeyRotated
+ */
+export type UserApiKeyRotated = Message<"paperboard.events.v1.UserApiKeyRotated"> & {
+  /**
+   * @generated from field: string user_id = 1;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string org_id = 2;
+   */
+  orgId: string;
+
+  /**
+   * @generated from field: string api_key_id = 3;
+   */
+  apiKeyId: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp emitted_at = 4;
+   */
+  emittedAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message paperboard.events.v1.UserApiKeyRotated.
+ * Use `create(UserApiKeyRotatedSchema)` to create a new message.
+ */
+export const UserApiKeyRotatedSchema: GenMessage<UserApiKeyRotated> = /*@__PURE__*/
+  messageDesc(file_events_v1_events, 4);
+
+/**
  * Emitted by onboarding service when the full provisioning flow succeeds.
  *
  * @generated from message paperboard.events.v1.OnboardingCompleted
@@ -172,7 +279,7 @@ export type OnboardingCompleted = Message<"paperboard.events.v1.OnboardingComple
  * Use `create(OnboardingCompletedSchema)` to create a new message.
  */
 export const OnboardingCompletedSchema: GenMessage<OnboardingCompleted> = /*@__PURE__*/
-  messageDesc(file_events_v1_events, 2);
+  messageDesc(file_events_v1_events, 5);
 
 /**
  * Emitted by onboarding service when a provisioning step fails (retriable).
@@ -228,7 +335,7 @@ export type OnboardingFailed = Message<"paperboard.events.v1.OnboardingFailed"> 
  * Use `create(OnboardingFailedSchema)` to create a new message.
  */
 export const OnboardingFailedSchema: GenMessage<OnboardingFailed> = /*@__PURE__*/
-  messageDesc(file_events_v1_events, 3);
+  messageDesc(file_events_v1_events, 6);
 
 /**
  * Emitted by onboarding service when an event is promoted to the dead-letter queue.
@@ -276,7 +383,7 @@ export type OnboardingDLQMoved = Message<"paperboard.events.v1.OnboardingDLQMove
  * Use `create(OnboardingDLQMovedSchema)` to create a new message.
  */
 export const OnboardingDLQMovedSchema: GenMessage<OnboardingDLQMoved> = /*@__PURE__*/
-  messageDesc(file_events_v1_events, 4);
+  messageDesc(file_events_v1_events, 7);
 
 /**
  * Emitted by runtime service when an agent session begins.
@@ -325,7 +432,7 @@ export type SessionStarted = Message<"paperboard.events.v1.SessionStarted"> & {
  * Use `create(SessionStartedSchema)` to create a new message.
  */
 export const SessionStartedSchema: GenMessage<SessionStarted> = /*@__PURE__*/
-  messageDesc(file_events_v1_events, 5);
+  messageDesc(file_events_v1_events, 8);
 
 /**
  * Emitted by runtime service when an agent session ends.
@@ -384,7 +491,7 @@ export type SessionEnded = Message<"paperboard.events.v1.SessionEnded"> & {
  * Use `create(SessionEndedSchema)` to create a new message.
  */
 export const SessionEndedSchema: GenMessage<SessionEnded> = /*@__PURE__*/
-  messageDesc(file_events_v1_events, 6);
+  messageDesc(file_events_v1_events, 9);
 
 /**
  * Emitted by agents service after each LLM invocation.
@@ -450,7 +557,7 @@ export type LLMTokenEmitted = Message<"paperboard.events.v1.LLMTokenEmitted"> & 
  * Use `create(LLMTokenEmittedSchema)` to create a new message.
  */
 export const LLMTokenEmittedSchema: GenMessage<LLMTokenEmitted> = /*@__PURE__*/
-  messageDesc(file_events_v1_events, 7);
+  messageDesc(file_events_v1_events, 10);
 
 /**
  * Emitted by compute service on sandbox lifecycle transitions.
@@ -496,7 +603,7 @@ export type SandboxLifecycle = Message<"paperboard.events.v1.SandboxLifecycle"> 
  * Use `create(SandboxLifecycleSchema)` to create a new message.
  */
 export const SandboxLifecycleSchema: GenMessage<SandboxLifecycle> = /*@__PURE__*/
-  messageDesc(file_events_v1_events, 8);
+  messageDesc(file_events_v1_events, 11);
 
 /**
  * Phase of the sandbox lifecycle transition.
@@ -534,7 +641,7 @@ export enum SandboxLifecycle_Phase {
  * Describes the enum paperboard.events.v1.SandboxLifecycle.Phase.
  */
 export const SandboxLifecycle_PhaseSchema: GenEnum<SandboxLifecycle_Phase> = /*@__PURE__*/
-  enumDesc(file_events_v1_events, 8, 0);
+  enumDesc(file_events_v1_events, 11, 0);
 
 /**
  * Reason a session was terminated.

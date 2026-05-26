@@ -135,7 +135,7 @@ func (x SandboxLifecycle_Phase) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use SandboxLifecycle_Phase.Descriptor instead.
 func (SandboxLifecycle_Phase) EnumDescriptor() ([]byte, []int) {
-	return file_events_v1_events_proto_rawDescGZIP(), []int{8, 0}
+	return file_events_v1_events_proto_rawDescGZIP(), []int{11, 0}
 }
 
 // Envelope wraps every outbox event on Redis Streams.
@@ -324,6 +324,216 @@ func (x *UserCreated) GetEmittedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// Emitted by identity service when a user authenticates successfully.
+type UserLogin struct {
+	state  protoimpl.MessageState `protogen:"open.v1"`
+	UserId string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	OrgId  string                 `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
+	// Open vocabulary: "password", "api_key", "refresh_token".
+	AuthMethod    string                 `protobuf:"bytes,3,opt,name=auth_method,json=authMethod,proto3" json:"auth_method,omitempty"`
+	EmittedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=emitted_at,json=emittedAt,proto3" json:"emitted_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserLogin) Reset() {
+	*x = UserLogin{}
+	mi := &file_events_v1_events_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserLogin) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserLogin) ProtoMessage() {}
+
+func (x *UserLogin) ProtoReflect() protoreflect.Message {
+	mi := &file_events_v1_events_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserLogin.ProtoReflect.Descriptor instead.
+func (*UserLogin) Descriptor() ([]byte, []int) {
+	return file_events_v1_events_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *UserLogin) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *UserLogin) GetOrgId() string {
+	if x != nil {
+		return x.OrgId
+	}
+	return ""
+}
+
+func (x *UserLogin) GetAuthMethod() string {
+	if x != nil {
+		return x.AuthMethod
+	}
+	return ""
+}
+
+func (x *UserLogin) GetEmittedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.EmittedAt
+	}
+	return nil
+}
+
+// Emitted by identity service when a user's refresh-token family is revoked
+// (explicit logout or revoke-all).
+type UserLogout struct {
+	state  protoimpl.MessageState `protogen:"open.v1"`
+	UserId string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	OrgId  string                 `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
+	// "logout" or "revoke_all".
+	Reason        string                 `protobuf:"bytes,3,opt,name=reason,proto3" json:"reason,omitempty"`
+	EmittedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=emitted_at,json=emittedAt,proto3" json:"emitted_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserLogout) Reset() {
+	*x = UserLogout{}
+	mi := &file_events_v1_events_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserLogout) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserLogout) ProtoMessage() {}
+
+func (x *UserLogout) ProtoReflect() protoreflect.Message {
+	mi := &file_events_v1_events_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserLogout.ProtoReflect.Descriptor instead.
+func (*UserLogout) Descriptor() ([]byte, []int) {
+	return file_events_v1_events_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UserLogout) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *UserLogout) GetOrgId() string {
+	if x != nil {
+		return x.OrgId
+	}
+	return ""
+}
+
+func (x *UserLogout) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+func (x *UserLogout) GetEmittedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.EmittedAt
+	}
+	return nil
+}
+
+// Emitted by identity service when an API key is soft-deleted (rotated/revoked).
+type UserApiKeyRotated struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	OrgId         string                 `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
+	ApiKeyId      string                 `protobuf:"bytes,3,opt,name=api_key_id,json=apiKeyId,proto3" json:"api_key_id,omitempty"`
+	EmittedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=emitted_at,json=emittedAt,proto3" json:"emitted_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserApiKeyRotated) Reset() {
+	*x = UserApiKeyRotated{}
+	mi := &file_events_v1_events_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserApiKeyRotated) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserApiKeyRotated) ProtoMessage() {}
+
+func (x *UserApiKeyRotated) ProtoReflect() protoreflect.Message {
+	mi := &file_events_v1_events_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserApiKeyRotated.ProtoReflect.Descriptor instead.
+func (*UserApiKeyRotated) Descriptor() ([]byte, []int) {
+	return file_events_v1_events_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UserApiKeyRotated) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *UserApiKeyRotated) GetOrgId() string {
+	if x != nil {
+		return x.OrgId
+	}
+	return ""
+}
+
+func (x *UserApiKeyRotated) GetApiKeyId() string {
+	if x != nil {
+		return x.ApiKeyId
+	}
+	return ""
+}
+
+func (x *UserApiKeyRotated) GetEmittedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.EmittedAt
+	}
+	return nil
+}
+
 // Emitted by onboarding service when the full provisioning flow succeeds.
 type OnboardingCompleted struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -340,7 +550,7 @@ type OnboardingCompleted struct {
 
 func (x *OnboardingCompleted) Reset() {
 	*x = OnboardingCompleted{}
-	mi := &file_events_v1_events_proto_msgTypes[2]
+	mi := &file_events_v1_events_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -352,7 +562,7 @@ func (x *OnboardingCompleted) String() string {
 func (*OnboardingCompleted) ProtoMessage() {}
 
 func (x *OnboardingCompleted) ProtoReflect() protoreflect.Message {
-	mi := &file_events_v1_events_proto_msgTypes[2]
+	mi := &file_events_v1_events_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -365,7 +575,7 @@ func (x *OnboardingCompleted) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OnboardingCompleted.ProtoReflect.Descriptor instead.
 func (*OnboardingCompleted) Descriptor() ([]byte, []int) {
-	return file_events_v1_events_proto_rawDescGZIP(), []int{2}
+	return file_events_v1_events_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *OnboardingCompleted) GetUserId() string {
@@ -437,7 +647,7 @@ type OnboardingFailed struct {
 
 func (x *OnboardingFailed) Reset() {
 	*x = OnboardingFailed{}
-	mi := &file_events_v1_events_proto_msgTypes[3]
+	mi := &file_events_v1_events_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -449,7 +659,7 @@ func (x *OnboardingFailed) String() string {
 func (*OnboardingFailed) ProtoMessage() {}
 
 func (x *OnboardingFailed) ProtoReflect() protoreflect.Message {
-	mi := &file_events_v1_events_proto_msgTypes[3]
+	mi := &file_events_v1_events_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -462,7 +672,7 @@ func (x *OnboardingFailed) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OnboardingFailed.ProtoReflect.Descriptor instead.
 func (*OnboardingFailed) Descriptor() ([]byte, []int) {
-	return file_events_v1_events_proto_rawDescGZIP(), []int{3}
+	return file_events_v1_events_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *OnboardingFailed) GetUserId() string {
@@ -531,7 +741,7 @@ type OnboardingDLQMoved struct {
 
 func (x *OnboardingDLQMoved) Reset() {
 	*x = OnboardingDLQMoved{}
-	mi := &file_events_v1_events_proto_msgTypes[4]
+	mi := &file_events_v1_events_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -543,7 +753,7 @@ func (x *OnboardingDLQMoved) String() string {
 func (*OnboardingDLQMoved) ProtoMessage() {}
 
 func (x *OnboardingDLQMoved) ProtoReflect() protoreflect.Message {
-	mi := &file_events_v1_events_proto_msgTypes[4]
+	mi := &file_events_v1_events_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -556,7 +766,7 @@ func (x *OnboardingDLQMoved) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OnboardingDLQMoved.ProtoReflect.Descriptor instead.
 func (*OnboardingDLQMoved) Descriptor() ([]byte, []int) {
-	return file_events_v1_events_proto_rawDescGZIP(), []int{4}
+	return file_events_v1_events_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *OnboardingDLQMoved) GetUserId() string {
@@ -617,7 +827,7 @@ type SessionStarted struct {
 
 func (x *SessionStarted) Reset() {
 	*x = SessionStarted{}
-	mi := &file_events_v1_events_proto_msgTypes[5]
+	mi := &file_events_v1_events_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -629,7 +839,7 @@ func (x *SessionStarted) String() string {
 func (*SessionStarted) ProtoMessage() {}
 
 func (x *SessionStarted) ProtoReflect() protoreflect.Message {
-	mi := &file_events_v1_events_proto_msgTypes[5]
+	mi := &file_events_v1_events_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -642,7 +852,7 @@ func (x *SessionStarted) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SessionStarted.ProtoReflect.Descriptor instead.
 func (*SessionStarted) Descriptor() ([]byte, []int) {
-	return file_events_v1_events_proto_rawDescGZIP(), []int{5}
+	return file_events_v1_events_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *SessionStarted) GetSessionId() string {
@@ -712,7 +922,7 @@ type SessionEnded struct {
 
 func (x *SessionEnded) Reset() {
 	*x = SessionEnded{}
-	mi := &file_events_v1_events_proto_msgTypes[6]
+	mi := &file_events_v1_events_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -724,7 +934,7 @@ func (x *SessionEnded) String() string {
 func (*SessionEnded) ProtoMessage() {}
 
 func (x *SessionEnded) ProtoReflect() protoreflect.Message {
-	mi := &file_events_v1_events_proto_msgTypes[6]
+	mi := &file_events_v1_events_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -737,7 +947,7 @@ func (x *SessionEnded) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SessionEnded.ProtoReflect.Descriptor instead.
 func (*SessionEnded) Descriptor() ([]byte, []int) {
-	return file_events_v1_events_proto_rawDescGZIP(), []int{6}
+	return file_events_v1_events_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *SessionEnded) GetSessionId() string {
@@ -823,7 +1033,7 @@ type LLMTokenEmitted struct {
 
 func (x *LLMTokenEmitted) Reset() {
 	*x = LLMTokenEmitted{}
-	mi := &file_events_v1_events_proto_msgTypes[7]
+	mi := &file_events_v1_events_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -835,7 +1045,7 @@ func (x *LLMTokenEmitted) String() string {
 func (*LLMTokenEmitted) ProtoMessage() {}
 
 func (x *LLMTokenEmitted) ProtoReflect() protoreflect.Message {
-	mi := &file_events_v1_events_proto_msgTypes[7]
+	mi := &file_events_v1_events_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -848,7 +1058,7 @@ func (x *LLMTokenEmitted) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LLMTokenEmitted.ProtoReflect.Descriptor instead.
 func (*LLMTokenEmitted) Descriptor() ([]byte, []int) {
-	return file_events_v1_events_proto_rawDescGZIP(), []int{7}
+	return file_events_v1_events_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *LLMTokenEmitted) GetSessionId() string {
@@ -937,7 +1147,7 @@ type SandboxLifecycle struct {
 
 func (x *SandboxLifecycle) Reset() {
 	*x = SandboxLifecycle{}
-	mi := &file_events_v1_events_proto_msgTypes[8]
+	mi := &file_events_v1_events_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -949,7 +1159,7 @@ func (x *SandboxLifecycle) String() string {
 func (*SandboxLifecycle) ProtoMessage() {}
 
 func (x *SandboxLifecycle) ProtoReflect() protoreflect.Message {
-	mi := &file_events_v1_events_proto_msgTypes[8]
+	mi := &file_events_v1_events_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -962,7 +1172,7 @@ func (x *SandboxLifecycle) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SandboxLifecycle.ProtoReflect.Descriptor instead.
 func (*SandboxLifecycle) Descriptor() ([]byte, []int) {
-	return file_events_v1_events_proto_rawDescGZIP(), []int{8}
+	return file_events_v1_events_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *SandboxLifecycle) GetSandboxId() string {
@@ -1029,7 +1239,28 @@ const file_events_v1_events_proto_rawDesc = "" +
 	"\fdisplay_name\x18\x03 \x01(\tR\vdisplayName\x12#\n" +
 	"\rauth_provider\x18\x04 \x01(\tR\fauthProvider\x129\n" +
 	"\n" +
-	"emitted_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\x88\x02\n" +
+	"emitted_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\x97\x01\n" +
+	"\tUserLogin\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x15\n" +
+	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x1f\n" +
+	"\vauth_method\x18\x03 \x01(\tR\n" +
+	"authMethod\x129\n" +
+	"\n" +
+	"emitted_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\x8f\x01\n" +
+	"\n" +
+	"UserLogout\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x15\n" +
+	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x16\n" +
+	"\x06reason\x18\x03 \x01(\tR\x06reason\x129\n" +
+	"\n" +
+	"emitted_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\x9c\x01\n" +
+	"\x11UserApiKeyRotated\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x15\n" +
+	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x1c\n" +
+	"\n" +
+	"api_key_id\x18\x03 \x01(\tR\bapiKeyId\x129\n" +
+	"\n" +
+	"emitted_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\x88\x02\n" +
 	"\x13OnboardingCompleted\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x15\n" +
 	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x19\n" +
@@ -1133,44 +1364,50 @@ func file_events_v1_events_proto_rawDescGZIP() []byte {
 }
 
 var file_events_v1_events_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_events_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_events_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_events_v1_events_proto_goTypes = []any{
 	(TerminationReason)(0),        // 0: paperboard.events.v1.TerminationReason
 	(SandboxLifecycle_Phase)(0),   // 1: paperboard.events.v1.SandboxLifecycle.Phase
 	(*Envelope)(nil),              // 2: paperboard.events.v1.Envelope
 	(*UserCreated)(nil),           // 3: paperboard.events.v1.UserCreated
-	(*OnboardingCompleted)(nil),   // 4: paperboard.events.v1.OnboardingCompleted
-	(*OnboardingFailed)(nil),      // 5: paperboard.events.v1.OnboardingFailed
-	(*OnboardingDLQMoved)(nil),    // 6: paperboard.events.v1.OnboardingDLQMoved
-	(*SessionStarted)(nil),        // 7: paperboard.events.v1.SessionStarted
-	(*SessionEnded)(nil),          // 8: paperboard.events.v1.SessionEnded
-	(*LLMTokenEmitted)(nil),       // 9: paperboard.events.v1.LLMTokenEmitted
-	(*SandboxLifecycle)(nil),      // 10: paperboard.events.v1.SandboxLifecycle
-	(*timestamppb.Timestamp)(nil), // 11: google.protobuf.Timestamp
-	(*anypb.Any)(nil),             // 12: google.protobuf.Any
+	(*UserLogin)(nil),             // 4: paperboard.events.v1.UserLogin
+	(*UserLogout)(nil),            // 5: paperboard.events.v1.UserLogout
+	(*UserApiKeyRotated)(nil),     // 6: paperboard.events.v1.UserApiKeyRotated
+	(*OnboardingCompleted)(nil),   // 7: paperboard.events.v1.OnboardingCompleted
+	(*OnboardingFailed)(nil),      // 8: paperboard.events.v1.OnboardingFailed
+	(*OnboardingDLQMoved)(nil),    // 9: paperboard.events.v1.OnboardingDLQMoved
+	(*SessionStarted)(nil),        // 10: paperboard.events.v1.SessionStarted
+	(*SessionEnded)(nil),          // 11: paperboard.events.v1.SessionEnded
+	(*LLMTokenEmitted)(nil),       // 12: paperboard.events.v1.LLMTokenEmitted
+	(*SandboxLifecycle)(nil),      // 13: paperboard.events.v1.SandboxLifecycle
+	(*timestamppb.Timestamp)(nil), // 14: google.protobuf.Timestamp
+	(*anypb.Any)(nil),             // 15: google.protobuf.Any
 }
 var file_events_v1_events_proto_depIdxs = []int32{
-	11, // 0: paperboard.events.v1.Envelope.occurred_at:type_name -> google.protobuf.Timestamp
-	12, // 1: paperboard.events.v1.Envelope.payload:type_name -> google.protobuf.Any
-	11, // 2: paperboard.events.v1.UserCreated.emitted_at:type_name -> google.protobuf.Timestamp
-	11, // 3: paperboard.events.v1.OnboardingCompleted.started_at:type_name -> google.protobuf.Timestamp
-	11, // 4: paperboard.events.v1.OnboardingCompleted.emitted_at:type_name -> google.protobuf.Timestamp
-	11, // 5: paperboard.events.v1.OnboardingFailed.emitted_at:type_name -> google.protobuf.Timestamp
-	11, // 6: paperboard.events.v1.OnboardingDLQMoved.emitted_at:type_name -> google.protobuf.Timestamp
-	11, // 7: paperboard.events.v1.SessionStarted.started_at:type_name -> google.protobuf.Timestamp
-	11, // 8: paperboard.events.v1.SessionStarted.emitted_at:type_name -> google.protobuf.Timestamp
-	11, // 9: paperboard.events.v1.SessionEnded.started_at:type_name -> google.protobuf.Timestamp
-	11, // 10: paperboard.events.v1.SessionEnded.ended_at:type_name -> google.protobuf.Timestamp
-	0,  // 11: paperboard.events.v1.SessionEnded.reason:type_name -> paperboard.events.v1.TerminationReason
-	11, // 12: paperboard.events.v1.SessionEnded.emitted_at:type_name -> google.protobuf.Timestamp
-	11, // 13: paperboard.events.v1.LLMTokenEmitted.emitted_at:type_name -> google.protobuf.Timestamp
-	1,  // 14: paperboard.events.v1.SandboxLifecycle.phase:type_name -> paperboard.events.v1.SandboxLifecycle.Phase
-	11, // 15: paperboard.events.v1.SandboxLifecycle.emitted_at:type_name -> google.protobuf.Timestamp
-	16, // [16:16] is the sub-list for method output_type
-	16, // [16:16] is the sub-list for method input_type
-	16, // [16:16] is the sub-list for extension type_name
-	16, // [16:16] is the sub-list for extension extendee
-	0,  // [0:16] is the sub-list for field type_name
+	14, // 0: paperboard.events.v1.Envelope.occurred_at:type_name -> google.protobuf.Timestamp
+	15, // 1: paperboard.events.v1.Envelope.payload:type_name -> google.protobuf.Any
+	14, // 2: paperboard.events.v1.UserCreated.emitted_at:type_name -> google.protobuf.Timestamp
+	14, // 3: paperboard.events.v1.UserLogin.emitted_at:type_name -> google.protobuf.Timestamp
+	14, // 4: paperboard.events.v1.UserLogout.emitted_at:type_name -> google.protobuf.Timestamp
+	14, // 5: paperboard.events.v1.UserApiKeyRotated.emitted_at:type_name -> google.protobuf.Timestamp
+	14, // 6: paperboard.events.v1.OnboardingCompleted.started_at:type_name -> google.protobuf.Timestamp
+	14, // 7: paperboard.events.v1.OnboardingCompleted.emitted_at:type_name -> google.protobuf.Timestamp
+	14, // 8: paperboard.events.v1.OnboardingFailed.emitted_at:type_name -> google.protobuf.Timestamp
+	14, // 9: paperboard.events.v1.OnboardingDLQMoved.emitted_at:type_name -> google.protobuf.Timestamp
+	14, // 10: paperboard.events.v1.SessionStarted.started_at:type_name -> google.protobuf.Timestamp
+	14, // 11: paperboard.events.v1.SessionStarted.emitted_at:type_name -> google.protobuf.Timestamp
+	14, // 12: paperboard.events.v1.SessionEnded.started_at:type_name -> google.protobuf.Timestamp
+	14, // 13: paperboard.events.v1.SessionEnded.ended_at:type_name -> google.protobuf.Timestamp
+	0,  // 14: paperboard.events.v1.SessionEnded.reason:type_name -> paperboard.events.v1.TerminationReason
+	14, // 15: paperboard.events.v1.SessionEnded.emitted_at:type_name -> google.protobuf.Timestamp
+	14, // 16: paperboard.events.v1.LLMTokenEmitted.emitted_at:type_name -> google.protobuf.Timestamp
+	1,  // 17: paperboard.events.v1.SandboxLifecycle.phase:type_name -> paperboard.events.v1.SandboxLifecycle.Phase
+	14, // 18: paperboard.events.v1.SandboxLifecycle.emitted_at:type_name -> google.protobuf.Timestamp
+	19, // [19:19] is the sub-list for method output_type
+	19, // [19:19] is the sub-list for method input_type
+	19, // [19:19] is the sub-list for extension type_name
+	19, // [19:19] is the sub-list for extension extendee
+	0,  // [0:19] is the sub-list for field type_name
 }
 
 func init() { file_events_v1_events_proto_init() }
@@ -1184,7 +1421,7 @@ func file_events_v1_events_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_events_v1_events_proto_rawDesc), len(file_events_v1_events_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   9,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
