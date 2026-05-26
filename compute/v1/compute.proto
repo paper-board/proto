@@ -31,11 +31,16 @@ service ComputeService {
 // ---- Sandbox lifecycle ----
 
 message CreateSandboxRequest {
-  string        tenant_id = 1;
-  string        session_id = 2;
-  string        image = 3;
-  WorkspaceSpec workspace = 4;
-  ResourceLimits limits = 5;
+  string              tenant_id = 1;
+  string              session_id = 2;
+  string              image = 3;
+  WorkspaceSpec       workspace = 4;
+  ResourceLimits      limits = 5;
+  // env_vars are injected as pod env; values are vault-resolved at call time.
+  // Keys and vault credential IDs are audit-logged; values are never logged.
+  map<string, string> env_vars = 6;
+  // org_id is required for outbox audit/metering events.
+  string              org_id = 7;
 }
 
 enum SandboxStatus {
