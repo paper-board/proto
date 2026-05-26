@@ -41,6 +41,48 @@ message UserCreated {
   google.protobuf.Timestamp emitted_at = 5;
 }
 
+enum AuthMethod {
+  AUTH_METHOD_UNSPECIFIED   = 0;
+  AUTH_METHOD_PASSWORD      = 1;
+  AUTH_METHOD_API_KEY       = 2;
+  AUTH_METHOD_REFRESH_TOKEN = 3;
+}
+
+enum LogoutReason {
+  LOGOUT_REASON_UNSPECIFIED = 0;
+  LOGOUT_REASON_LOGOUT      = 1;
+  LOGOUT_REASON_REVOKE_ALL  = 2;
+}
+
+// Emitted by identity service when a user authenticates successfully.
+message UserLogin {
+  string                    user_id    = 1;
+  string                    org_id     = 2;
+  AuthMethod                auth_method = 3;
+  google.protobuf.Timestamp emitted_at = 4;
+  string                    ip_address = 5;
+  string                    user_agent = 6;
+}
+
+// Emitted by identity service when a user's refresh-token family is revoked
+// (explicit logout or revoke-all).
+message UserLogout {
+  string                    user_id    = 1;
+  string                    org_id     = 2;
+  LogoutReason              reason     = 3;
+  google.protobuf.Timestamp emitted_at = 4;
+}
+
+// Emitted by identity service when an API key is soft-deleted (rotated/revoked).
+message UserApiKeyRotated {
+  string                    user_id        = 1;
+  string                    org_id         = 2;
+  string                    api_key_id     = 3;
+  google.protobuf.Timestamp emitted_at     = 4;
+  // Empty for pure revocation; populated for rotation.
+  string                    new_api_key_id = 5;
+}
+
 // Emitted by onboarding service when the full provisioning flow succeeds.
 message OnboardingCompleted {
   string user_id = 1;
