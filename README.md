@@ -70,20 +70,21 @@ git push origin v0.X.Y
 
 Tag bump rules:
 
-| Change                                    | Bump  |
-| ----------------------------------------- | ----- |
-| New package or breaking field/RPC change  | MINOR |
-| Backward-compatible field or RPC addition | PATCH |
+| Change                                                    | Bump                                                                              |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| New package or additive RPC                               | MINOR                                                                             |
+| Bugfix to generated output, no proto change               | PATCH                                                                             |
+| Breaking change (new package version, e.g. `identity.v2`) | coordinate with all consumers before tagging; `buf breaking` enforces this on PRs |
 
 Tag history:
 
-| Tag    | Contents                                                         |
-| ------ | ---------------------------------------------------------------- |
-| v0.4.0 | Outbox envelope + 6 Phase 4 service contracts + 8 event payloads |
-| v0.3.0 | Phase 3 — runtime/v1 + compute/v1 + common/v1 usage              |
-| v0.2.1 | Phase 2 — identity/v1 AuthService + agents/v1                    |
-| v0.2.0 | identity/v1 + agents/v1 scaffold                                 |
-| v0.1.0 | common/v1 + module init                                          |
+| Tag    | Contents added                                                                     |
+| ------ | ---------------------------------------------------------------------------------- |
+| v0.4.0 | Outbox envelope + 6 Phase 4 service contracts + 8 event payloads                   |
+| v0.3.0 | `common.v1` UsageMetrics, `compute.v1` ComputeService, `runtime.v1` RuntimeService |
+| v0.2.1 | `common.v1` package rename (`paperboard.common.v1` → `common.v1`)                  |
+| v0.2.0 | `identity.v1` AuthService                                                          |
+| v0.1.0 | Initial scaffold, `common.v1` (errors, paging, ids, timestamps)                    |
 
 ## Versioning
 
@@ -153,8 +154,7 @@ Contract design follows
 
 - [ADR-0005](https://github.com/paper-board/.github/blob/main/docs/adr/0005-rest-public-grpc-internal.md) — REST public, gRPC internal
 - [ADR-0008](https://github.com/paper-board/.github/blob/main/docs/adr/0008-license-coc-commit-conventions.md) — license + versioning + commit conventions
-- [ADR-0014](https://github.com/paper-board/.github/blob/main/docs/adr/0014-phase-rebalance.md) — phase rebalance
-- [ADR-0015](https://github.com/paper-board/.github/blob/main/docs/adr/0015-mvp-launch-phase-rebalance.md) — MVP launch phase rebalance
+- [docs/operations.md](docs/operations.md) — tagging procedure, tag history, codegen workflow
 
 ## License
 
