@@ -7,6 +7,7 @@ package runtime.v1;
 
 option go_package = "github.com/paper-board/proto/gen/go/runtime/v1;runtimev1";
 
+import "environments/v1/environments.proto";
 import "google/protobuf/timestamp.proto";
 
 service RuntimeService {
@@ -15,6 +16,47 @@ service RuntimeService {
   // (x-tenant-id / x-org-id per ADR-0005) — not in the request body.
   rpc Invoke (InvokeRequest) returns (stream InvokeEvent);
 }
+
+// ProvisionService creates per-session pods with environment config and vault credentials.
+service ProvisionService {
+  rpc Provision (ProvisionRequest) returns (ProvisionResponse);
+  rpc Terminate (TerminateRequest) returns (TerminateResponse);
+}
+
+// ProvisionRequest carries all inputs required to create a session pod.
+message ProvisionRequest {
+  string org_id     = 1;
+  string session_id = 2;
+  string user_id    = 3;
+  string agent_id   = 4;
+  string env_id     = 5;
+  // EnvConfig from the environments service (container image, packages, network policy).
+  paperboard.environments.v1.EnvironmentConfig env_config = 6;
+  // Non-sensitive env vars from environments service.
+  map<string, string> env_vars = 7;
+  // VaultSecretRef is the k8s Secret name holding vault credentials.
+  // Empty means no vault credentials.
+  string vault_secret_ref = 8;
+}
+
+// ProvisionResponse is returned after a session pod is created.
+message ProvisionResponse {
+  string pod_name            = 1;
+  string network_policy_name = 2;
+  google.protobuf.Timestamp provisioned_at = 3;
+}
+
+// TerminateRequest tears down a session pod and emits termination events.
+message TerminateRequest {
+  string org_id     = 1;
+  string session_id = 2;
+  string user_id    = 3;
+  string agent_id   = 4;
+  google.protobuf.Timestamp started_at = 5;
+}
+
+// TerminateResponse is empty; callers check for error only.
+message TerminateResponse {}
 
 // InvokeRequest wraps an agent prompt invocation.
 // Tenant context propagated via gRPC metadata x-tenant-id / x-org-id (ADR-0005); not in request body.

@@ -10,6 +10,7 @@
 package runtimev1
 
 import (
+	v1 "github.com/paper-board/proto/gen/go/environments/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -25,6 +26,286 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// ProvisionRequest carries all inputs required to create a session pod.
+type ProvisionRequest struct {
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	OrgId     string                 `protobuf:"bytes,1,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
+	SessionId string                 `protobuf:"bytes,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	UserId    string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	AgentId   string                 `protobuf:"bytes,4,opt,name=agent_id,json=agentId,proto3" json:"agent_id,omitempty"`
+	EnvId     string                 `protobuf:"bytes,5,opt,name=env_id,json=envId,proto3" json:"env_id,omitempty"`
+	// EnvConfig from the environments service (container image, packages, network policy).
+	EnvConfig *v1.EnvironmentConfig `protobuf:"bytes,6,opt,name=env_config,json=envConfig,proto3" json:"env_config,omitempty"`
+	// Non-sensitive env vars from environments service.
+	EnvVars map[string]string `protobuf:"bytes,7,rep,name=env_vars,json=envVars,proto3" json:"env_vars,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// VaultSecretRef is the k8s Secret name holding vault credentials.
+	// Empty means no vault credentials.
+	VaultSecretRef string `protobuf:"bytes,8,opt,name=vault_secret_ref,json=vaultSecretRef,proto3" json:"vault_secret_ref,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *ProvisionRequest) Reset() {
+	*x = ProvisionRequest{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ProvisionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProvisionRequest) ProtoMessage() {}
+
+func (x *ProvisionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProvisionRequest.ProtoReflect.Descriptor instead.
+func (*ProvisionRequest) Descriptor() ([]byte, []int) {
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ProvisionRequest) GetOrgId() string {
+	if x != nil {
+		return x.OrgId
+	}
+	return ""
+}
+
+func (x *ProvisionRequest) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
+func (x *ProvisionRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ProvisionRequest) GetAgentId() string {
+	if x != nil {
+		return x.AgentId
+	}
+	return ""
+}
+
+func (x *ProvisionRequest) GetEnvId() string {
+	if x != nil {
+		return x.EnvId
+	}
+	return ""
+}
+
+func (x *ProvisionRequest) GetEnvConfig() *v1.EnvironmentConfig {
+	if x != nil {
+		return x.EnvConfig
+	}
+	return nil
+}
+
+func (x *ProvisionRequest) GetEnvVars() map[string]string {
+	if x != nil {
+		return x.EnvVars
+	}
+	return nil
+}
+
+func (x *ProvisionRequest) GetVaultSecretRef() string {
+	if x != nil {
+		return x.VaultSecretRef
+	}
+	return ""
+}
+
+// ProvisionResponse is returned after a session pod is created.
+type ProvisionResponse struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	PodName           string                 `protobuf:"bytes,1,opt,name=pod_name,json=podName,proto3" json:"pod_name,omitempty"`
+	NetworkPolicyName string                 `protobuf:"bytes,2,opt,name=network_policy_name,json=networkPolicyName,proto3" json:"network_policy_name,omitempty"`
+	ProvisionedAt     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=provisioned_at,json=provisionedAt,proto3" json:"provisioned_at,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *ProvisionResponse) Reset() {
+	*x = ProvisionResponse{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ProvisionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProvisionResponse) ProtoMessage() {}
+
+func (x *ProvisionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProvisionResponse.ProtoReflect.Descriptor instead.
+func (*ProvisionResponse) Descriptor() ([]byte, []int) {
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ProvisionResponse) GetPodName() string {
+	if x != nil {
+		return x.PodName
+	}
+	return ""
+}
+
+func (x *ProvisionResponse) GetNetworkPolicyName() string {
+	if x != nil {
+		return x.NetworkPolicyName
+	}
+	return ""
+}
+
+func (x *ProvisionResponse) GetProvisionedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ProvisionedAt
+	}
+	return nil
+}
+
+// TerminateRequest tears down a session pod and emits termination events.
+type TerminateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrgId         string                 `protobuf:"bytes,1,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
+	SessionId     string                 `protobuf:"bytes,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	AgentId       string                 `protobuf:"bytes,4,opt,name=agent_id,json=agentId,proto3" json:"agent_id,omitempty"`
+	StartedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=started_at,json=startedAt,proto3" json:"started_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TerminateRequest) Reset() {
+	*x = TerminateRequest{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TerminateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TerminateRequest) ProtoMessage() {}
+
+func (x *TerminateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TerminateRequest.ProtoReflect.Descriptor instead.
+func (*TerminateRequest) Descriptor() ([]byte, []int) {
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *TerminateRequest) GetOrgId() string {
+	if x != nil {
+		return x.OrgId
+	}
+	return ""
+}
+
+func (x *TerminateRequest) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
+func (x *TerminateRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *TerminateRequest) GetAgentId() string {
+	if x != nil {
+		return x.AgentId
+	}
+	return ""
+}
+
+func (x *TerminateRequest) GetStartedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartedAt
+	}
+	return nil
+}
+
+// TerminateResponse is empty; callers check for error only.
+type TerminateResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TerminateResponse) Reset() {
+	*x = TerminateResponse{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TerminateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TerminateResponse) ProtoMessage() {}
+
+func (x *TerminateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TerminateResponse.ProtoReflect.Descriptor instead.
+func (*TerminateResponse) Descriptor() ([]byte, []int) {
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{3}
+}
+
 // InvokeRequest wraps an agent prompt invocation.
 // Tenant context propagated via gRPC metadata x-tenant-id / x-org-id (ADR-0005); not in request body.
 type InvokeRequest struct {
@@ -39,7 +320,7 @@ type InvokeRequest struct {
 
 func (x *InvokeRequest) Reset() {
 	*x = InvokeRequest{}
-	mi := &file_runtime_v1_runtime_proto_msgTypes[0]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -51,7 +332,7 @@ func (x *InvokeRequest) String() string {
 func (*InvokeRequest) ProtoMessage() {}
 
 func (x *InvokeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_runtime_v1_runtime_proto_msgTypes[0]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -64,7 +345,7 @@ func (x *InvokeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InvokeRequest.ProtoReflect.Descriptor instead.
 func (*InvokeRequest) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{0}
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *InvokeRequest) GetSessionId() string {
@@ -106,7 +387,7 @@ type PromptMessage struct {
 
 func (x *PromptMessage) Reset() {
 	*x = PromptMessage{}
-	mi := &file_runtime_v1_runtime_proto_msgTypes[1]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -118,7 +399,7 @@ func (x *PromptMessage) String() string {
 func (*PromptMessage) ProtoMessage() {}
 
 func (x *PromptMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_runtime_v1_runtime_proto_msgTypes[1]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -131,7 +412,7 @@ func (x *PromptMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PromptMessage.ProtoReflect.Descriptor instead.
 func (*PromptMessage) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{1}
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *PromptMessage) GetRole() string {
@@ -164,7 +445,7 @@ type InvokeEvent struct {
 
 func (x *InvokeEvent) Reset() {
 	*x = InvokeEvent{}
-	mi := &file_runtime_v1_runtime_proto_msgTypes[2]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -176,7 +457,7 @@ func (x *InvokeEvent) String() string {
 func (*InvokeEvent) ProtoMessage() {}
 
 func (x *InvokeEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_runtime_v1_runtime_proto_msgTypes[2]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -189,7 +470,7 @@ func (x *InvokeEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InvokeEvent.ProtoReflect.Descriptor instead.
 func (*InvokeEvent) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{2}
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *InvokeEvent) GetEvent() isInvokeEvent_Event {
@@ -265,7 +546,7 @@ type TextChunk struct {
 
 func (x *TextChunk) Reset() {
 	*x = TextChunk{}
-	mi := &file_runtime_v1_runtime_proto_msgTypes[3]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -277,7 +558,7 @@ func (x *TextChunk) String() string {
 func (*TextChunk) ProtoMessage() {}
 
 func (x *TextChunk) ProtoReflect() protoreflect.Message {
-	mi := &file_runtime_v1_runtime_proto_msgTypes[3]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -290,7 +571,7 @@ func (x *TextChunk) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TextChunk.ProtoReflect.Descriptor instead.
 func (*TextChunk) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{3}
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *TextChunk) GetContent() string {
@@ -311,7 +592,7 @@ type TurnDone struct {
 
 func (x *TurnDone) Reset() {
 	*x = TurnDone{}
-	mi := &file_runtime_v1_runtime_proto_msgTypes[4]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -323,7 +604,7 @@ func (x *TurnDone) String() string {
 func (*TurnDone) ProtoMessage() {}
 
 func (x *TurnDone) ProtoReflect() protoreflect.Message {
-	mi := &file_runtime_v1_runtime_proto_msgTypes[4]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -336,7 +617,7 @@ func (x *TurnDone) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TurnDone.ProtoReflect.Descriptor instead.
 func (*TurnDone) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{4}
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *TurnDone) GetTokensIn() int32 {
@@ -364,7 +645,7 @@ type InvokeError struct {
 
 func (x *InvokeError) Reset() {
 	*x = InvokeError{}
-	mi := &file_runtime_v1_runtime_proto_msgTypes[5]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -376,7 +657,7 @@ func (x *InvokeError) String() string {
 func (*InvokeError) ProtoMessage() {}
 
 func (x *InvokeError) ProtoReflect() protoreflect.Message {
-	mi := &file_runtime_v1_runtime_proto_msgTypes[5]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -389,7 +670,7 @@ func (x *InvokeError) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InvokeError.ProtoReflect.Descriptor instead.
 func (*InvokeError) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{5}
+	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *InvokeError) GetCode() string {
@@ -411,7 +692,34 @@ var File_runtime_v1_runtime_proto protoreflect.FileDescriptor
 const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\n" +
 	"\x18runtime/v1/runtime.proto\x12\n" +
-	"runtime.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x9f\x01\n" +
+	"runtime.v1\x1a\"environments/v1/environments.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x8d\x03\n" +
+	"\x10ProvisionRequest\x12\x15\n" +
+	"\x06org_id\x18\x01 \x01(\tR\x05orgId\x12\x1d\n" +
+	"\n" +
+	"session_id\x18\x02 \x01(\tR\tsessionId\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\x12\x19\n" +
+	"\bagent_id\x18\x04 \x01(\tR\aagentId\x12\x15\n" +
+	"\x06env_id\x18\x05 \x01(\tR\x05envId\x12L\n" +
+	"\n" +
+	"env_config\x18\x06 \x01(\v2-.paperboard.environments.v1.EnvironmentConfigR\tenvConfig\x12D\n" +
+	"\benv_vars\x18\a \x03(\v2).runtime.v1.ProvisionRequest.EnvVarsEntryR\aenvVars\x12(\n" +
+	"\x10vault_secret_ref\x18\b \x01(\tR\x0evaultSecretRef\x1a:\n" +
+	"\fEnvVarsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xa1\x01\n" +
+	"\x11ProvisionResponse\x12\x19\n" +
+	"\bpod_name\x18\x01 \x01(\tR\apodName\x12.\n" +
+	"\x13network_policy_name\x18\x02 \x01(\tR\x11networkPolicyName\x12A\n" +
+	"\x0eprovisioned_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\rprovisionedAt\"\xb7\x01\n" +
+	"\x10TerminateRequest\x12\x15\n" +
+	"\x06org_id\x18\x01 \x01(\tR\x05orgId\x12\x1d\n" +
+	"\n" +
+	"session_id\x18\x02 \x01(\tR\tsessionId\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\x12\x19\n" +
+	"\bagent_id\x18\x04 \x01(\tR\aagentId\x129\n" +
+	"\n" +
+	"started_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tstartedAt\"\x13\n" +
+	"\x11TerminateResponse\"\x9f\x01\n" +
 	"\rInvokeRequest\x12\x1d\n" +
 	"\n" +
 	"session_id\x18\x01 \x01(\tR\tsessionId\x12\x1d\n" +
@@ -441,7 +749,10 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\x04code\x18\x01 \x01(\tR\x04code\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage2P\n" +
 	"\x0eRuntimeService\x12>\n" +
-	"\x06Invoke\x12\x19.runtime.v1.InvokeRequest\x1a\x17.runtime.v1.InvokeEvent0\x01B\xa1\x01\n" +
+	"\x06Invoke\x12\x19.runtime.v1.InvokeRequest\x1a\x17.runtime.v1.InvokeEvent0\x012\xa6\x01\n" +
+	"\x10ProvisionService\x12H\n" +
+	"\tProvision\x12\x1c.runtime.v1.ProvisionRequest\x1a\x1d.runtime.v1.ProvisionResponse\x12H\n" +
+	"\tTerminate\x12\x1c.runtime.v1.TerminateRequest\x1a\x1d.runtime.v1.TerminateResponseB\xa1\x01\n" +
 	"\x0ecom.runtime.v1B\fRuntimeProtoP\x01Z8github.com/paper-board/proto/gen/go/runtime/v1;runtimev1\xa2\x02\x03RXX\xaa\x02\n" +
 	"Runtime.V1\xca\x02\n" +
 	"Runtime\\V1\xe2\x02\x16Runtime\\V1\\GPBMetadata\xea\x02\vRuntime::V1b\x06proto3"
@@ -458,29 +769,43 @@ func file_runtime_v1_runtime_proto_rawDescGZIP() []byte {
 	return file_runtime_v1_runtime_proto_rawDescData
 }
 
-var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_runtime_v1_runtime_proto_goTypes = []any{
-	(*InvokeRequest)(nil),         // 0: runtime.v1.InvokeRequest
-	(*PromptMessage)(nil),         // 1: runtime.v1.PromptMessage
-	(*InvokeEvent)(nil),           // 2: runtime.v1.InvokeEvent
-	(*TextChunk)(nil),             // 3: runtime.v1.TextChunk
-	(*TurnDone)(nil),              // 4: runtime.v1.TurnDone
-	(*InvokeError)(nil),           // 5: runtime.v1.InvokeError
-	(*timestamppb.Timestamp)(nil), // 6: google.protobuf.Timestamp
+	(*ProvisionRequest)(nil),      // 0: runtime.v1.ProvisionRequest
+	(*ProvisionResponse)(nil),     // 1: runtime.v1.ProvisionResponse
+	(*TerminateRequest)(nil),      // 2: runtime.v1.TerminateRequest
+	(*TerminateResponse)(nil),     // 3: runtime.v1.TerminateResponse
+	(*InvokeRequest)(nil),         // 4: runtime.v1.InvokeRequest
+	(*PromptMessage)(nil),         // 5: runtime.v1.PromptMessage
+	(*InvokeEvent)(nil),           // 6: runtime.v1.InvokeEvent
+	(*TextChunk)(nil),             // 7: runtime.v1.TextChunk
+	(*TurnDone)(nil),              // 8: runtime.v1.TurnDone
+	(*InvokeError)(nil),           // 9: runtime.v1.InvokeError
+	nil,                           // 10: runtime.v1.ProvisionRequest.EnvVarsEntry
+	(*v1.EnvironmentConfig)(nil),  // 11: paperboard.environments.v1.EnvironmentConfig
+	(*timestamppb.Timestamp)(nil), // 12: google.protobuf.Timestamp
 }
 var file_runtime_v1_runtime_proto_depIdxs = []int32{
-	1, // 0: runtime.v1.InvokeRequest.messages:type_name -> runtime.v1.PromptMessage
-	3, // 1: runtime.v1.InvokeEvent.text_chunk:type_name -> runtime.v1.TextChunk
-	4, // 2: runtime.v1.InvokeEvent.turn_done:type_name -> runtime.v1.TurnDone
-	5, // 3: runtime.v1.InvokeEvent.error:type_name -> runtime.v1.InvokeError
-	6, // 4: runtime.v1.InvokeEvent.emitted_at:type_name -> google.protobuf.Timestamp
-	0, // 5: runtime.v1.RuntimeService.Invoke:input_type -> runtime.v1.InvokeRequest
-	2, // 6: runtime.v1.RuntimeService.Invoke:output_type -> runtime.v1.InvokeEvent
-	6, // [6:7] is the sub-list for method output_type
-	5, // [5:6] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	11, // 0: runtime.v1.ProvisionRequest.env_config:type_name -> paperboard.environments.v1.EnvironmentConfig
+	10, // 1: runtime.v1.ProvisionRequest.env_vars:type_name -> runtime.v1.ProvisionRequest.EnvVarsEntry
+	12, // 2: runtime.v1.ProvisionResponse.provisioned_at:type_name -> google.protobuf.Timestamp
+	12, // 3: runtime.v1.TerminateRequest.started_at:type_name -> google.protobuf.Timestamp
+	5,  // 4: runtime.v1.InvokeRequest.messages:type_name -> runtime.v1.PromptMessage
+	7,  // 5: runtime.v1.InvokeEvent.text_chunk:type_name -> runtime.v1.TextChunk
+	8,  // 6: runtime.v1.InvokeEvent.turn_done:type_name -> runtime.v1.TurnDone
+	9,  // 7: runtime.v1.InvokeEvent.error:type_name -> runtime.v1.InvokeError
+	12, // 8: runtime.v1.InvokeEvent.emitted_at:type_name -> google.protobuf.Timestamp
+	4,  // 9: runtime.v1.RuntimeService.Invoke:input_type -> runtime.v1.InvokeRequest
+	0,  // 10: runtime.v1.ProvisionService.Provision:input_type -> runtime.v1.ProvisionRequest
+	2,  // 11: runtime.v1.ProvisionService.Terminate:input_type -> runtime.v1.TerminateRequest
+	6,  // 12: runtime.v1.RuntimeService.Invoke:output_type -> runtime.v1.InvokeEvent
+	1,  // 13: runtime.v1.ProvisionService.Provision:output_type -> runtime.v1.ProvisionResponse
+	3,  // 14: runtime.v1.ProvisionService.Terminate:output_type -> runtime.v1.TerminateResponse
+	12, // [12:15] is the sub-list for method output_type
+	9,  // [9:12] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_runtime_v1_runtime_proto_init() }
@@ -488,7 +813,7 @@ func file_runtime_v1_runtime_proto_init() {
 	if File_runtime_v1_runtime_proto != nil {
 		return
 	}
-	file_runtime_v1_runtime_proto_msgTypes[2].OneofWrappers = []any{
+	file_runtime_v1_runtime_proto_msgTypes[6].OneofWrappers = []any{
 		(*InvokeEvent_TextChunk)(nil),
 		(*InvokeEvent_TurnDone)(nil),
 		(*InvokeEvent_Error)(nil),
@@ -499,9 +824,9 @@ func file_runtime_v1_runtime_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_runtime_v1_runtime_proto_rawDesc), len(file_runtime_v1_runtime_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   11,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   2,
 		},
 		GoTypes:           file_runtime_v1_runtime_proto_goTypes,
 		DependencyIndexes: file_runtime_v1_runtime_proto_depIdxs,

@@ -129,3 +129,145 @@ var RuntimeService_ServiceDesc = grpc.ServiceDesc{
 	},
 	Metadata: "runtime/v1/runtime.proto",
 }
+
+const (
+	ProvisionService_Provision_FullMethodName = "/runtime.v1.ProvisionService/Provision"
+	ProvisionService_Terminate_FullMethodName = "/runtime.v1.ProvisionService/Terminate"
+)
+
+// ProvisionServiceClient is the client API for ProvisionService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// ProvisionService creates per-session pods with environment config and vault credentials.
+type ProvisionServiceClient interface {
+	Provision(ctx context.Context, in *ProvisionRequest, opts ...grpc.CallOption) (*ProvisionResponse, error)
+	Terminate(ctx context.Context, in *TerminateRequest, opts ...grpc.CallOption) (*TerminateResponse, error)
+}
+
+type provisionServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewProvisionServiceClient(cc grpc.ClientConnInterface) ProvisionServiceClient {
+	return &provisionServiceClient{cc}
+}
+
+func (c *provisionServiceClient) Provision(ctx context.Context, in *ProvisionRequest, opts ...grpc.CallOption) (*ProvisionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ProvisionResponse)
+	err := c.cc.Invoke(ctx, ProvisionService_Provision_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *provisionServiceClient) Terminate(ctx context.Context, in *TerminateRequest, opts ...grpc.CallOption) (*TerminateResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TerminateResponse)
+	err := c.cc.Invoke(ctx, ProvisionService_Terminate_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ProvisionServiceServer is the server API for ProvisionService service.
+// All implementations should embed UnimplementedProvisionServiceServer
+// for forward compatibility.
+//
+// ProvisionService creates per-session pods with environment config and vault credentials.
+type ProvisionServiceServer interface {
+	Provision(context.Context, *ProvisionRequest) (*ProvisionResponse, error)
+	Terminate(context.Context, *TerminateRequest) (*TerminateResponse, error)
+}
+
+// UnimplementedProvisionServiceServer should be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedProvisionServiceServer struct{}
+
+func (UnimplementedProvisionServiceServer) Provision(context.Context, *ProvisionRequest) (*ProvisionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Provision not implemented")
+}
+func (UnimplementedProvisionServiceServer) Terminate(context.Context, *TerminateRequest) (*TerminateResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Terminate not implemented")
+}
+func (UnimplementedProvisionServiceServer) testEmbeddedByValue() {}
+
+// UnsafeProvisionServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ProvisionServiceServer will
+// result in compilation errors.
+type UnsafeProvisionServiceServer interface {
+	mustEmbedUnimplementedProvisionServiceServer()
+}
+
+func RegisterProvisionServiceServer(s grpc.ServiceRegistrar, srv ProvisionServiceServer) {
+	// If the following call panics, it indicates UnimplementedProvisionServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&ProvisionService_ServiceDesc, srv)
+}
+
+func _ProvisionService_Provision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProvisionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProvisionServiceServer).Provision(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProvisionService_Provision_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProvisionServiceServer).Provision(ctx, req.(*ProvisionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProvisionService_Terminate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TerminateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProvisionServiceServer).Terminate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProvisionService_Terminate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProvisionServiceServer).Terminate(ctx, req.(*TerminateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// ProvisionService_ServiceDesc is the grpc.ServiceDesc for ProvisionService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ProvisionService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "runtime.v1.ProvisionService",
+	HandlerType: (*ProvisionServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Provision",
+			Handler:    _ProvisionService_Provision_Handler,
+		},
+		{
+			MethodName: "Terminate",
+			Handler:    _ProvisionService_Terminate_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "runtime/v1/runtime.proto",
+}
