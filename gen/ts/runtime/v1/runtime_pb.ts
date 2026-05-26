@@ -7,6 +7,8 @@
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
+import type { EnvironmentConfig } from "../../environments/v1/environments_pb";
+import { file_environments_v1_environments } from "../../environments/v1/environments_pb";
 import type { Timestamp } from "@bufbuild/protobuf/wkt";
 import { file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
 import type { Message } from "@bufbuild/protobuf";
@@ -15,7 +17,151 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file runtime/v1/runtime.proto.
  */
 export const file_runtime_v1_runtime: GenFile = /*@__PURE__*/
-  fileDesc("ChhydW50aW1lL3YxL3J1bnRpbWUucHJvdG8SCnJ1bnRpbWUudjEidgoNSW52b2tlUmVxdWVzdBISCgpzZXNzaW9uX2lkGAEgASgJEhIKCnJlcXVlc3RfaWQYAiABKAkSEAoIdHJhY2VfaWQYAyABKAkSKwoIbWVzc2FnZXMYBCADKAsyGS5ydW50aW1lLnYxLlByb21wdE1lc3NhZ2UiLgoNUHJvbXB0TWVzc2FnZRIMCgRyb2xlGAEgASgJEg8KB2NvbnRlbnQYAiABKAkiyAEKC0ludm9rZUV2ZW50EisKCnRleHRfY2h1bmsYASABKAsyFS5ydW50aW1lLnYxLlRleHRDaHVua0gAEikKCXR1cm5fZG9uZRgCIAEoCzIULnJ1bnRpbWUudjEuVHVybkRvbmVIABIoCgVlcnJvchgDIAEoCzIXLnJ1bnRpbWUudjEuSW52b2tlRXJyb3JIABIuCgplbWl0dGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEIHCgVldmVudCIcCglUZXh0Q2h1bmsSDwoHY29udGVudBgBIAEoCSIxCghUdXJuRG9uZRIRCgl0b2tlbnNfaW4YASABKAUSEgoKdG9rZW5zX291dBgCIAEoBSIsCgtJbnZva2VFcnJvchIMCgRjb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkyUAoOUnVudGltZVNlcnZpY2USPgoGSW52b2tlEhkucnVudGltZS52MS5JbnZva2VSZXF1ZXN0GhcucnVudGltZS52MS5JbnZva2VFdmVudDABQqEBCg5jb20ucnVudGltZS52MUIMUnVudGltZVByb3RvUAFaOGdpdGh1Yi5jb20vcGFwZXItYm9hcmQvcHJvdG8vZ2VuL2dvL3J1bnRpbWUvdjE7cnVudGltZXYxogIDUlhYqgIKUnVudGltZS5WMcoCClJ1bnRpbWVcVjHiAhZSdW50aW1lXFYxXEdQQk1ldGFkYXRh6gILUnVudGltZTo6VjFiBnByb3RvMw", [file_google_protobuf_timestamp]);
+  fileDesc("ChhydW50aW1lL3YxL3J1bnRpbWUucHJvdG8SCnJ1bnRpbWUudjEiswIKEFByb3Zpc2lvblJlcXVlc3QSDgoGb3JnX2lkGAEgASgJEhIKCnNlc3Npb25faWQYAiABKAkSDwoHdXNlcl9pZBgDIAEoCRIQCghhZ2VudF9pZBgEIAEoCRIOCgZlbnZfaWQYBSABKAkSQQoKZW52X2NvbmZpZxgGIAEoCzItLnBhcGVyYm9hcmQuZW52aXJvbm1lbnRzLnYxLkVudmlyb25tZW50Q29uZmlnEjsKCGVudl92YXJzGAcgAygLMikucnVudGltZS52MS5Qcm92aXNpb25SZXF1ZXN0LkVudlZhcnNFbnRyeRIYChB2YXVsdF9zZWNyZXRfcmVmGAggASgJGi4KDEVudlZhcnNFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKAk6AjgBInYKEVByb3Zpc2lvblJlc3BvbnNlEhAKCHBvZF9uYW1lGAEgASgJEhsKE25ldHdvcmtfcG9saWN5X25hbWUYAiABKAkSMgoOcHJvdmlzaW9uZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIokBChBUZXJtaW5hdGVSZXF1ZXN0Eg4KBm9yZ19pZBgBIAEoCRISCgpzZXNzaW9uX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSEAoIYWdlbnRfaWQYBCABKAkSLgoKc3RhcnRlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiEwoRVGVybWluYXRlUmVzcG9uc2UidgoNSW52b2tlUmVxdWVzdBISCgpzZXNzaW9uX2lkGAEgASgJEhIKCnJlcXVlc3RfaWQYAiABKAkSEAoIdHJhY2VfaWQYAyABKAkSKwoIbWVzc2FnZXMYBCADKAsyGS5ydW50aW1lLnYxLlByb21wdE1lc3NhZ2UiLgoNUHJvbXB0TWVzc2FnZRIMCgRyb2xlGAEgASgJEg8KB2NvbnRlbnQYAiABKAkiyAEKC0ludm9rZUV2ZW50EisKCnRleHRfY2h1bmsYASABKAsyFS5ydW50aW1lLnYxLlRleHRDaHVua0gAEikKCXR1cm5fZG9uZRgCIAEoCzIULnJ1bnRpbWUudjEuVHVybkRvbmVIABIoCgVlcnJvchgDIAEoCzIXLnJ1bnRpbWUudjEuSW52b2tlRXJyb3JIABIuCgplbWl0dGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEIHCgVldmVudCIcCglUZXh0Q2h1bmsSDwoHY29udGVudBgBIAEoCSIxCghUdXJuRG9uZRIRCgl0b2tlbnNfaW4YASABKAUSEgoKdG9rZW5zX291dBgCIAEoBSIsCgtJbnZva2VFcnJvchIMCgRjb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkyUAoOUnVudGltZVNlcnZpY2USPgoGSW52b2tlEhkucnVudGltZS52MS5JbnZva2VSZXF1ZXN0GhcucnVudGltZS52MS5JbnZva2VFdmVudDABMqYBChBQcm92aXNpb25TZXJ2aWNlEkgKCVByb3Zpc2lvbhIcLnJ1bnRpbWUudjEuUHJvdmlzaW9uUmVxdWVzdBodLnJ1bnRpbWUudjEuUHJvdmlzaW9uUmVzcG9uc2USSAoJVGVybWluYXRlEhwucnVudGltZS52MS5UZXJtaW5hdGVSZXF1ZXN0Gh0ucnVudGltZS52MS5UZXJtaW5hdGVSZXNwb25zZUKhAQoOY29tLnJ1bnRpbWUudjFCDFJ1bnRpbWVQcm90b1ABWjhnaXRodWIuY29tL3BhcGVyLWJvYXJkL3Byb3RvL2dlbi9nby9ydW50aW1lL3YxO3J1bnRpbWV2MaICA1JYWKoCClJ1bnRpbWUuVjHKAgpSdW50aW1lXFYx4gIWUnVudGltZVxWMVxHUEJNZXRhZGF0YeoCC1J1bnRpbWU6OlYxYgZwcm90bzM", [file_environments_v1_environments, file_google_protobuf_timestamp]);
+
+/**
+ * ProvisionRequest carries all inputs required to create a session pod.
+ *
+ * @generated from message runtime.v1.ProvisionRequest
+ */
+export type ProvisionRequest = Message<"runtime.v1.ProvisionRequest"> & {
+  /**
+   * @generated from field: string org_id = 1;
+   */
+  orgId: string;
+
+  /**
+   * @generated from field: string session_id = 2;
+   */
+  sessionId: string;
+
+  /**
+   * @generated from field: string user_id = 3;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string agent_id = 4;
+   */
+  agentId: string;
+
+  /**
+   * @generated from field: string env_id = 5;
+   */
+  envId: string;
+
+  /**
+   * EnvConfig from the environments service (container image, packages, network policy).
+   *
+   * @generated from field: paperboard.environments.v1.EnvironmentConfig env_config = 6;
+   */
+  envConfig?: EnvironmentConfig | undefined;
+
+  /**
+   * Non-sensitive env vars from environments service.
+   *
+   * @generated from field: map<string, string> env_vars = 7;
+   */
+  envVars: { [key: string]: string };
+
+  /**
+   * VaultSecretRef is the k8s Secret name holding vault credentials.
+   * Empty means no vault credentials.
+   *
+   * @generated from field: string vault_secret_ref = 8;
+   */
+  vaultSecretRef: string;
+};
+
+/**
+ * Describes the message runtime.v1.ProvisionRequest.
+ * Use `create(ProvisionRequestSchema)` to create a new message.
+ */
+export const ProvisionRequestSchema: GenMessage<ProvisionRequest> = /*@__PURE__*/
+  messageDesc(file_runtime_v1_runtime, 0);
+
+/**
+ * ProvisionResponse is returned after a session pod is created.
+ *
+ * @generated from message runtime.v1.ProvisionResponse
+ */
+export type ProvisionResponse = Message<"runtime.v1.ProvisionResponse"> & {
+  /**
+   * @generated from field: string pod_name = 1;
+   */
+  podName: string;
+
+  /**
+   * @generated from field: string network_policy_name = 2;
+   */
+  networkPolicyName: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp provisioned_at = 3;
+   */
+  provisionedAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message runtime.v1.ProvisionResponse.
+ * Use `create(ProvisionResponseSchema)` to create a new message.
+ */
+export const ProvisionResponseSchema: GenMessage<ProvisionResponse> = /*@__PURE__*/
+  messageDesc(file_runtime_v1_runtime, 1);
+
+/**
+ * TerminateRequest tears down a session pod and emits termination events.
+ *
+ * @generated from message runtime.v1.TerminateRequest
+ */
+export type TerminateRequest = Message<"runtime.v1.TerminateRequest"> & {
+  /**
+   * @generated from field: string org_id = 1;
+   */
+  orgId: string;
+
+  /**
+   * @generated from field: string session_id = 2;
+   */
+  sessionId: string;
+
+  /**
+   * @generated from field: string user_id = 3;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string agent_id = 4;
+   */
+  agentId: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp started_at = 5;
+   */
+  startedAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message runtime.v1.TerminateRequest.
+ * Use `create(TerminateRequestSchema)` to create a new message.
+ */
+export const TerminateRequestSchema: GenMessage<TerminateRequest> = /*@__PURE__*/
+  messageDesc(file_runtime_v1_runtime, 2);
+
+/**
+ * TerminateResponse is empty; callers check for error only.
+ *
+ * @generated from message runtime.v1.TerminateResponse
+ */
+export type TerminateResponse = Message<"runtime.v1.TerminateResponse"> & {
+};
+
+/**
+ * Describes the message runtime.v1.TerminateResponse.
+ * Use `create(TerminateResponseSchema)` to create a new message.
+ */
+export const TerminateResponseSchema: GenMessage<TerminateResponse> = /*@__PURE__*/
+  messageDesc(file_runtime_v1_runtime, 3);
 
 /**
  * InvokeRequest wraps an agent prompt invocation.
@@ -50,7 +196,7 @@ export type InvokeRequest = Message<"runtime.v1.InvokeRequest"> & {
  * Use `create(InvokeRequestSchema)` to create a new message.
  */
 export const InvokeRequestSchema: GenMessage<InvokeRequest> = /*@__PURE__*/
-  messageDesc(file_runtime_v1_runtime, 0);
+  messageDesc(file_runtime_v1_runtime, 4);
 
 /**
  * PromptMessage mirrors the agents REST API message shape (role + content).
@@ -74,7 +220,7 @@ export type PromptMessage = Message<"runtime.v1.PromptMessage"> & {
  * Use `create(PromptMessageSchema)` to create a new message.
  */
 export const PromptMessageSchema: GenMessage<PromptMessage> = /*@__PURE__*/
-  messageDesc(file_runtime_v1_runtime, 1);
+  messageDesc(file_runtime_v1_runtime, 5);
 
 /**
  * InvokeEvent is a server-streaming event returned by RuntimeService.Invoke.
@@ -116,7 +262,7 @@ export type InvokeEvent = Message<"runtime.v1.InvokeEvent"> & {
  * Use `create(InvokeEventSchema)` to create a new message.
  */
 export const InvokeEventSchema: GenMessage<InvokeEvent> = /*@__PURE__*/
-  messageDesc(file_runtime_v1_runtime, 2);
+  messageDesc(file_runtime_v1_runtime, 6);
 
 /**
  * TextChunk carries a partial LLM text response.
@@ -135,7 +281,7 @@ export type TextChunk = Message<"runtime.v1.TextChunk"> & {
  * Use `create(TextChunkSchema)` to create a new message.
  */
 export const TextChunkSchema: GenMessage<TextChunk> = /*@__PURE__*/
-  messageDesc(file_runtime_v1_runtime, 3);
+  messageDesc(file_runtime_v1_runtime, 7);
 
 /**
  * TurnDone signals the end of a successful invocation turn with token accounting.
@@ -159,7 +305,7 @@ export type TurnDone = Message<"runtime.v1.TurnDone"> & {
  * Use `create(TurnDoneSchema)` to create a new message.
  */
 export const TurnDoneSchema: GenMessage<TurnDone> = /*@__PURE__*/
-  messageDesc(file_runtime_v1_runtime, 4);
+  messageDesc(file_runtime_v1_runtime, 8);
 
 /**
  * InvokeError signals a terminal error during invocation.
@@ -183,7 +329,7 @@ export type InvokeError = Message<"runtime.v1.InvokeError"> & {
  * Use `create(InvokeErrorSchema)` to create a new message.
  */
 export const InvokeErrorSchema: GenMessage<InvokeError> = /*@__PURE__*/
-  messageDesc(file_runtime_v1_runtime, 5);
+  messageDesc(file_runtime_v1_runtime, 9);
 
 /**
  * @generated from service runtime.v1.RuntimeService
@@ -203,4 +349,29 @@ export const RuntimeService: GenService<{
   },
 }> = /*@__PURE__*/
   serviceDesc(file_runtime_v1_runtime, 0);
+
+/**
+ * ProvisionService creates per-session pods with environment config and vault credentials.
+ *
+ * @generated from service runtime.v1.ProvisionService
+ */
+export const ProvisionService: GenService<{
+  /**
+   * @generated from rpc runtime.v1.ProvisionService.Provision
+   */
+  provision: {
+    methodKind: "unary";
+    input: typeof ProvisionRequestSchema;
+    output: typeof ProvisionResponseSchema;
+  },
+  /**
+   * @generated from rpc runtime.v1.ProvisionService.Terminate
+   */
+  terminate: {
+    methodKind: "unary";
+    input: typeof TerminateRequestSchema;
+    output: typeof TerminateResponseSchema;
+  },
+}> = /*@__PURE__*/
+  serviceDesc(file_runtime_v1_runtime, 1);
 
