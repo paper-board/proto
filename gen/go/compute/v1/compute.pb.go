@@ -82,12 +82,17 @@ func (SandboxStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type CreateSandboxRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
-	SessionId     string                 `protobuf:"bytes,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
-	Image         string                 `protobuf:"bytes,3,opt,name=image,proto3" json:"image,omitempty"`
-	Workspace     *WorkspaceSpec         `protobuf:"bytes,4,opt,name=workspace,proto3" json:"workspace,omitempty"`
-	Limits        *ResourceLimits        `protobuf:"bytes,5,opt,name=limits,proto3" json:"limits,omitempty"`
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	TenantId  string                 `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	SessionId string                 `protobuf:"bytes,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	Image     string                 `protobuf:"bytes,3,opt,name=image,proto3" json:"image,omitempty"`
+	Workspace *WorkspaceSpec         `protobuf:"bytes,4,opt,name=workspace,proto3" json:"workspace,omitempty"`
+	Limits    *ResourceLimits        `protobuf:"bytes,5,opt,name=limits,proto3" json:"limits,omitempty"`
+	// env_vars are injected as pod env; values are vault-resolved at call time.
+	// Keys and vault credential IDs are audit-logged; values are never logged.
+	EnvVars map[string]string `protobuf:"bytes,6,rep,name=env_vars,json=envVars,proto3" json:"env_vars,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// org_id is required for outbox audit/metering events.
+	OrgId         string `protobuf:"bytes,7,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -155,6 +160,20 @@ func (x *CreateSandboxRequest) GetLimits() *ResourceLimits {
 		return x.Limits
 	}
 	return nil
+}
+
+func (x *CreateSandboxRequest) GetEnvVars() map[string]string {
+	if x != nil {
+		return x.EnvVars
+	}
+	return nil
+}
+
+func (x *CreateSandboxRequest) GetOrgId() string {
+	if x != nil {
+		return x.OrgId
+	}
+	return ""
 }
 
 type CreateSandboxResponse struct {
@@ -1356,14 +1375,19 @@ var File_compute_v1_compute_proto protoreflect.FileDescriptor
 const file_compute_v1_compute_proto_rawDesc = "" +
 	"\n" +
 	"\x18compute/v1/compute.proto\x12\n" +
-	"compute.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x15common/v1/usage.proto\"\xd5\x01\n" +
+	"compute.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x15common/v1/usage.proto\"\xf2\x02\n" +
 	"\x14CreateSandboxRequest\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x1d\n" +
 	"\n" +
 	"session_id\x18\x02 \x01(\tR\tsessionId\x12\x14\n" +
 	"\x05image\x18\x03 \x01(\tR\x05image\x127\n" +
 	"\tworkspace\x18\x04 \x01(\v2\x19.compute.v1.WorkspaceSpecR\tworkspace\x122\n" +
-	"\x06limits\x18\x05 \x01(\v2\x1a.compute.v1.ResourceLimitsR\x06limits\"\xa4\x01\n" +
+	"\x06limits\x18\x05 \x01(\v2\x1a.compute.v1.ResourceLimitsR\x06limits\x12H\n" +
+	"\benv_vars\x18\x06 \x03(\v2-.compute.v1.CreateSandboxRequest.EnvVarsEntryR\aenvVars\x12\x15\n" +
+	"\x06org_id\x18\a \x01(\tR\x05orgId\x1a:\n" +
+	"\fEnvVarsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xa4\x01\n" +
 	"\x15CreateSandboxResponse\x12\x1d\n" +
 	"\n" +
 	"sandbox_id\x18\x01 \x01(\tR\tsandboxId\x121\n" +
@@ -1503,7 +1527,7 @@ func file_compute_v1_compute_proto_rawDescGZIP() []byte {
 }
 
 var file_compute_v1_compute_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_compute_v1_compute_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+var file_compute_v1_compute_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_compute_v1_compute_proto_goTypes = []any{
 	(SandboxStatus)(0),              // 0: compute.v1.SandboxStatus
 	(*CreateSandboxRequest)(nil),    // 1: compute.v1.CreateSandboxRequest
@@ -1526,52 +1550,54 @@ var file_compute_v1_compute_proto_goTypes = []any{
 	(*ListFilesRequest)(nil),        // 18: compute.v1.ListFilesRequest
 	(*ListFilesResponse)(nil),       // 19: compute.v1.ListFilesResponse
 	(*FileEntry)(nil),               // 20: compute.v1.FileEntry
-	nil,                             // 21: compute.v1.ExecCommandRequest.EnvEntry
-	(*timestamppb.Timestamp)(nil),   // 22: google.protobuf.Timestamp
-	(*durationpb.Duration)(nil),     // 23: google.protobuf.Duration
-	(*v1.UsageMetrics)(nil),         // 24: common.v1.UsageMetrics
+	nil,                             // 21: compute.v1.CreateSandboxRequest.EnvVarsEntry
+	nil,                             // 22: compute.v1.ExecCommandRequest.EnvEntry
+	(*timestamppb.Timestamp)(nil),   // 23: google.protobuf.Timestamp
+	(*durationpb.Duration)(nil),     // 24: google.protobuf.Duration
+	(*v1.UsageMetrics)(nil),         // 25: common.v1.UsageMetrics
 }
 var file_compute_v1_compute_proto_depIdxs = []int32{
 	3,  // 0: compute.v1.CreateSandboxRequest.workspace:type_name -> compute.v1.WorkspaceSpec
 	4,  // 1: compute.v1.CreateSandboxRequest.limits:type_name -> compute.v1.ResourceLimits
-	0,  // 2: compute.v1.CreateSandboxResponse.status:type_name -> compute.v1.SandboxStatus
-	22, // 3: compute.v1.CreateSandboxResponse.created_at:type_name -> google.protobuf.Timestamp
-	23, // 4: compute.v1.ResourceLimits.max_runtime:type_name -> google.protobuf.Duration
-	23, // 5: compute.v1.DestroySandboxResponse.total_uptime:type_name -> google.protobuf.Duration
-	24, // 6: compute.v1.DestroySandboxResponse.total_usage:type_name -> common.v1.UsageMetrics
-	0,  // 7: compute.v1.DescribeSandboxResponse.status:type_name -> compute.v1.SandboxStatus
-	22, // 8: compute.v1.DescribeSandboxResponse.created_at:type_name -> google.protobuf.Timestamp
-	23, // 9: compute.v1.DescribeSandboxResponse.current_uptime:type_name -> google.protobuf.Duration
-	24, // 10: compute.v1.DescribeSandboxResponse.current_usage:type_name -> common.v1.UsageMetrics
-	21, // 11: compute.v1.ExecCommandRequest.env:type_name -> compute.v1.ExecCommandRequest.EnvEntry
-	23, // 12: compute.v1.ExecCommandRequest.timeout:type_name -> google.protobuf.Duration
-	11, // 13: compute.v1.ExecEvent.stdout:type_name -> compute.v1.StdoutLine
-	12, // 14: compute.v1.ExecEvent.stderr:type_name -> compute.v1.StderrLine
-	13, // 15: compute.v1.ExecEvent.completed:type_name -> compute.v1.ExecCompleted
-	22, // 16: compute.v1.ExecEvent.emitted_at:type_name -> google.protobuf.Timestamp
-	23, // 17: compute.v1.ExecCompleted.wall_time:type_name -> google.protobuf.Duration
-	24, // 18: compute.v1.ExecCompleted.usage:type_name -> common.v1.UsageMetrics
-	20, // 19: compute.v1.ListFilesResponse.entries:type_name -> compute.v1.FileEntry
-	22, // 20: compute.v1.FileEntry.modified_at:type_name -> google.protobuf.Timestamp
-	1,  // 21: compute.v1.ComputeService.CreateSandbox:input_type -> compute.v1.CreateSandboxRequest
-	5,  // 22: compute.v1.ComputeService.DestroySandbox:input_type -> compute.v1.DestroySandboxRequest
-	7,  // 23: compute.v1.ComputeService.DescribeSandbox:input_type -> compute.v1.DescribeSandboxRequest
-	9,  // 24: compute.v1.ComputeService.ExecCommand:input_type -> compute.v1.ExecCommandRequest
-	14, // 25: compute.v1.ComputeService.ReadFile:input_type -> compute.v1.ReadFileRequest
-	16, // 26: compute.v1.ComputeService.WriteFile:input_type -> compute.v1.WriteFileRequest
-	18, // 27: compute.v1.ComputeService.ListFiles:input_type -> compute.v1.ListFilesRequest
-	2,  // 28: compute.v1.ComputeService.CreateSandbox:output_type -> compute.v1.CreateSandboxResponse
-	6,  // 29: compute.v1.ComputeService.DestroySandbox:output_type -> compute.v1.DestroySandboxResponse
-	8,  // 30: compute.v1.ComputeService.DescribeSandbox:output_type -> compute.v1.DescribeSandboxResponse
-	10, // 31: compute.v1.ComputeService.ExecCommand:output_type -> compute.v1.ExecEvent
-	15, // 32: compute.v1.ComputeService.ReadFile:output_type -> compute.v1.ReadFileResponse
-	17, // 33: compute.v1.ComputeService.WriteFile:output_type -> compute.v1.WriteFileResponse
-	19, // 34: compute.v1.ComputeService.ListFiles:output_type -> compute.v1.ListFilesResponse
-	28, // [28:35] is the sub-list for method output_type
-	21, // [21:28] is the sub-list for method input_type
-	21, // [21:21] is the sub-list for extension type_name
-	21, // [21:21] is the sub-list for extension extendee
-	0,  // [0:21] is the sub-list for field type_name
+	21, // 2: compute.v1.CreateSandboxRequest.env_vars:type_name -> compute.v1.CreateSandboxRequest.EnvVarsEntry
+	0,  // 3: compute.v1.CreateSandboxResponse.status:type_name -> compute.v1.SandboxStatus
+	23, // 4: compute.v1.CreateSandboxResponse.created_at:type_name -> google.protobuf.Timestamp
+	24, // 5: compute.v1.ResourceLimits.max_runtime:type_name -> google.protobuf.Duration
+	24, // 6: compute.v1.DestroySandboxResponse.total_uptime:type_name -> google.protobuf.Duration
+	25, // 7: compute.v1.DestroySandboxResponse.total_usage:type_name -> common.v1.UsageMetrics
+	0,  // 8: compute.v1.DescribeSandboxResponse.status:type_name -> compute.v1.SandboxStatus
+	23, // 9: compute.v1.DescribeSandboxResponse.created_at:type_name -> google.protobuf.Timestamp
+	24, // 10: compute.v1.DescribeSandboxResponse.current_uptime:type_name -> google.protobuf.Duration
+	25, // 11: compute.v1.DescribeSandboxResponse.current_usage:type_name -> common.v1.UsageMetrics
+	22, // 12: compute.v1.ExecCommandRequest.env:type_name -> compute.v1.ExecCommandRequest.EnvEntry
+	24, // 13: compute.v1.ExecCommandRequest.timeout:type_name -> google.protobuf.Duration
+	11, // 14: compute.v1.ExecEvent.stdout:type_name -> compute.v1.StdoutLine
+	12, // 15: compute.v1.ExecEvent.stderr:type_name -> compute.v1.StderrLine
+	13, // 16: compute.v1.ExecEvent.completed:type_name -> compute.v1.ExecCompleted
+	23, // 17: compute.v1.ExecEvent.emitted_at:type_name -> google.protobuf.Timestamp
+	24, // 18: compute.v1.ExecCompleted.wall_time:type_name -> google.protobuf.Duration
+	25, // 19: compute.v1.ExecCompleted.usage:type_name -> common.v1.UsageMetrics
+	20, // 20: compute.v1.ListFilesResponse.entries:type_name -> compute.v1.FileEntry
+	23, // 21: compute.v1.FileEntry.modified_at:type_name -> google.protobuf.Timestamp
+	1,  // 22: compute.v1.ComputeService.CreateSandbox:input_type -> compute.v1.CreateSandboxRequest
+	5,  // 23: compute.v1.ComputeService.DestroySandbox:input_type -> compute.v1.DestroySandboxRequest
+	7,  // 24: compute.v1.ComputeService.DescribeSandbox:input_type -> compute.v1.DescribeSandboxRequest
+	9,  // 25: compute.v1.ComputeService.ExecCommand:input_type -> compute.v1.ExecCommandRequest
+	14, // 26: compute.v1.ComputeService.ReadFile:input_type -> compute.v1.ReadFileRequest
+	16, // 27: compute.v1.ComputeService.WriteFile:input_type -> compute.v1.WriteFileRequest
+	18, // 28: compute.v1.ComputeService.ListFiles:input_type -> compute.v1.ListFilesRequest
+	2,  // 29: compute.v1.ComputeService.CreateSandbox:output_type -> compute.v1.CreateSandboxResponse
+	6,  // 30: compute.v1.ComputeService.DestroySandbox:output_type -> compute.v1.DestroySandboxResponse
+	8,  // 31: compute.v1.ComputeService.DescribeSandbox:output_type -> compute.v1.DescribeSandboxResponse
+	10, // 32: compute.v1.ComputeService.ExecCommand:output_type -> compute.v1.ExecEvent
+	15, // 33: compute.v1.ComputeService.ReadFile:output_type -> compute.v1.ReadFileResponse
+	17, // 34: compute.v1.ComputeService.WriteFile:output_type -> compute.v1.WriteFileResponse
+	19, // 35: compute.v1.ComputeService.ListFiles:output_type -> compute.v1.ListFilesResponse
+	29, // [29:36] is the sub-list for method output_type
+	22, // [22:29] is the sub-list for method input_type
+	22, // [22:22] is the sub-list for extension type_name
+	22, // [22:22] is the sub-list for extension extendee
+	0,  // [0:22] is the sub-list for field type_name
 }
 
 func init() { file_compute_v1_compute_proto_init() }
@@ -1590,7 +1616,7 @@ func file_compute_v1_compute_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_compute_v1_compute_proto_rawDesc), len(file_compute_v1_compute_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   21,
+			NumMessages:   22,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

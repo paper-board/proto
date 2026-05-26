@@ -1,4 +1,4 @@
-// events/v1/events.proto — Outbox envelope (D6.3) + 8 Phase 4 payload messages.
+// events/v1/events.proto — Outbox envelope (D6.3) + identity + Phase 4 payload messages.
 // Wire format: protojson(Envelope) written to Redis stream field "data".
 
 syntax = "proto3";
@@ -23,7 +23,7 @@ message Envelope {
   string trace_id = 5;
   // Tenancy scope; empty allowed only for identity.user.created (pre-org).
   string org_id = 6;
-  // One of the 8 payload messages defined below.
+  // One of the payload messages defined below.
   google.protobuf.Any payload = 7;
   // Payload schema version; starts at 1 in Wave 1.
   int32 schema_version = 8;
@@ -56,12 +56,12 @@ enum LogoutReason {
 
 // Emitted by identity service when a user authenticates successfully.
 message UserLogin {
-  string                    user_id    = 1;
-  string                    org_id     = 2;
+  string                    user_id     = 1;
+  string                    org_id      = 2;
   AuthMethod                auth_method = 3;
-  google.protobuf.Timestamp emitted_at = 4;
-  string                    ip_address = 5;
-  string                    user_agent = 6;
+  google.protobuf.Timestamp emitted_at  = 4;
+  string                    ip_address  = 5;
+  string                    user_agent  = 6;
 }
 
 // Emitted by identity service when a user's refresh-token family is revoked
@@ -186,5 +186,37 @@ message SandboxLifecycle {
   Phase phase = 4;
   // Free-form; populated for PHASE_FAILED and PHASE_TERMINATED.
   string reason = 5;
+  google.protobuf.Timestamp emitted_at = 6;
+  // env_var_key_names lists injected env var key names (values never logged).
+  repeated string env_var_key_names = 7;
+}
+
+// Emitted by compute service after each tool call execution.
+// Values of env vars injected into the sandbox are never included.
+message ToolCallExecuted {
+  string sandbox_id = 1;
+  string session_id = 2;
+  string org_id = 3;
+  // Tool type: "bash", "file_read", "file_write", "python", etc.
+  string tool_type = 4;
+  // Wall-clock duration of the tool call in milliseconds.
+  int64 duration_ms = 5;
+  // Exit code returned by the process (0 = success).
+  int32 exit_code = 6;
+  // Whether the call was cancelled via context deadline / client cancel.
+  bool cancelled = 7;
+  google.protobuf.Timestamp emitted_at = 8;
+}
+
+// Emitted by compute service for metering (paperboard.usage stream).
+// One ComputeUsage event covers one metering dimension per emission.
+message ComputeUsage {
+  string sandbox_id = 1;
+  string session_id = 2;
+  string org_id = 3;
+  // Metric dimension: "sandbox_seconds", "cpu_seconds", "network_egress_bytes".
+  string metric = 4;
+  // Scalar value for the metric (seconds as int64 for time, bytes for network).
+  int64 value = 5;
   google.protobuf.Timestamp emitted_at = 6;
 }
