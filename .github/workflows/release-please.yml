@@ -13,7 +13,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v5
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7  # v5.0.0 — SHA-pinned for supply-chain hygiene; bump via Dependabot
         with:
           token: ${{ secrets.RELEASE_PLEASE_PAT }}
           config-file: release-please-config.json
