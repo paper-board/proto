@@ -15,7 +15,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file events/v1/events.proto.
  */
 export const file_events_v1_events: GenFile = /*@__PURE__*/
-  fileDesc("ChZldmVudHMvdjEvZXZlbnRzLnByb3RvEhRwYXBlcmJvYXJkLmV2ZW50cy52MSLaAQoIRW52ZWxvcGUSEAoIZXZlbnRfaWQYASABKAkSEgoKZXZlbnRfdHlwZRgCIAEoCRIWCg5zb3VyY2Vfc2VydmljZRgDIAEoCRIvCgtvY2N1cnJlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASEAoIdHJhY2VfaWQYBSABKAkSDgoGb3JnX2lkGAYgASgJEiUKB3BheWxvYWQYByABKAsyFC5nb29nbGUucHJvdG9idWYuQW55EhYKDnNjaGVtYV92ZXJzaW9uGAggASgFIooBCgtVc2VyQ3JlYXRlZBIPCgd1c2VyX2lkGAEgASgJEg0KBWVtYWlsGAIgASgJEhQKDGRpc3BsYXlfbmFtZRgDIAEoCRIVCg1hdXRoX3Byb3ZpZGVyGAQgASgJEi4KCmVtaXR0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wInEKCVVzZXJMb2dpbhIPCgd1c2VyX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRITCgthdXRoX21ldGhvZBgDIAEoCRIuCgplbWl0dGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJtCgpVc2VyTG9nb3V0Eg8KB3VzZXJfaWQYASABKAkSDgoGb3JnX2lkGAIgASgJEg4KBnJlYXNvbhgDIAEoCRIuCgplbWl0dGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ4ChFVc2VyQXBpS2V5Um90YXRlZBIPCgd1c2VyX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRISCgphcGlfa2V5X2lkGAMgASgJEi4KCmVtaXR0ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIsoBChNPbmJvYXJkaW5nQ29tcGxldGVkEg8KB3VzZXJfaWQYASABKAkSDgoGb3JnX2lkGAIgASgJEhAKCHZhdWx0X2lkGAMgASgJEg4KBmVudl9pZBgEIAEoCRIQCghhZ2VudF9pZBgFIAEoCRIuCgpzdGFydGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgplbWl0dGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKzAQoQT25ib2FyZGluZ0ZhaWxlZBIPCgd1c2VyX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRIRCglsYXN0X3N0ZXAYAyABKAkSEgoKZXJyb3JfY29kZRgEIAEoCRIVCg1lcnJvcl9tZXNzYWdlGAUgASgJEhAKCGF0dGVtcHRzGAYgASgFEi4KCmVtaXR0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIqcBChJPbmJvYXJkaW5nRExRTW92ZWQSDwoHdXNlcl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSEQoJbGFzdF9zdGVwGAMgASgJEhsKE2ZpbmFsX2Vycm9yX21lc3NhZ2UYBCABKAkSEAoIYXR0ZW1wdHMYBSABKAUSLgoKZW1pdHRlZF9hdBgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAixwEKDlNlc3Npb25TdGFydGVkEhIKCnNlc3Npb25faWQYASABKAkSDgoGb3JnX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSEAoIYWdlbnRfaWQYBCABKAkSDgoGZW52X2lkGAUgASgJEi4KCnN0YXJ0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmVtaXR0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIrYCCgxTZXNzaW9uRW5kZWQSEgoKc2Vzc2lvbl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSDwoHdXNlcl9pZBgDIAEoCRIQCghhZ2VudF9pZBgEIAEoCRIuCgpzdGFydGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIsCghlbmRlZF9hdBgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASGAoQZHVyYXRpb25fc2Vjb25kcxgHIAEoAxI3CgZyZWFzb24YCCABKA4yJy5wYXBlcmJvYXJkLmV2ZW50cy52MS5UZXJtaW5hdGlvblJlYXNvbhIuCgplbWl0dGVkX2F0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCL7AQoPTExNVG9rZW5FbWl0dGVkEhIKCnNlc3Npb25faWQYASABKAkSDgoGb3JnX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSEAoIYWdlbnRfaWQYBCABKAkSDQoFbW9kZWwYBSABKAkSFAoMaW5wdXRfdG9rZW5zGAYgASgFEhUKDW91dHB1dF90b2tlbnMYByABKAUSGQoRY2FjaGVfcmVhZF90b2tlbnMYCCABKAUSGgoSY2FjaGVfd3JpdGVfdG9rZW5zGAkgASgFEi4KCmVtaXR0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIrcCChBTYW5kYm94TGlmZWN5Y2xlEhIKCnNhbmRib3hfaWQYASABKAkSEgoKc2Vzc2lvbl9pZBgCIAEoCRIOCgZvcmdfaWQYAyABKAkSOwoFcGhhc2UYBCABKA4yLC5wYXBlcmJvYXJkLmV2ZW50cy52MS5TYW5kYm94TGlmZWN5Y2xlLlBoYXNlEg4KBnJlYXNvbhgFIAEoCRIuCgplbWl0dGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJuCgVQaGFzZRIVChFQSEFTRV9VTlNQRUNJRklFRBAAEhUKEVBIQVNFX1BST1ZJU0lPTkVEEAESDwoLUEhBU0VfUkVBRFkQAhIUChBQSEFTRV9URVJNSU5BVEVEEAMSEAoMUEhBU0VfRkFJTEVEEAQqvwEKEVRlcm1pbmF0aW9uUmVhc29uEiIKHlRFUk1JTkFUSU9OX1JFQVNPTl9VTlNQRUNJRklFRBAAEiAKHFRFUk1JTkFUSU9OX1JFQVNPTl9VU0VSX1FVSVQQARIeChpURVJNSU5BVElPTl9SRUFTT05fVElNRU9VVBACEhwKGFRFUk1JTkFUSU9OX1JFQVNPTl9FUlJPUhADEiYKIlRFUk1JTkFUSU9OX1JFQVNPTl9TWVNURU1fU0hVVERPV04QBELRAQoYY29tLnBhcGVyYm9hcmQuZXZlbnRzLnYxQgtFdmVudHNQcm90b1ABWjZnaXRodWIuY29tL3BhcGVyLWJvYXJkL3Byb3RvL2dlbi9nby9ldmVudHMvdjE7ZXZlbnRzdjGiAgNQRViqAhRQYXBlcmJvYXJkLkV2ZW50cy5WMcoCFFBhcGVyYm9hcmRcRXZlbnRzXFYx4gIgUGFwZXJib2FyZFxFdmVudHNcVjFcR1BCTWV0YWRhdGHqAhZQYXBlcmJvYXJkOjpFdmVudHM6OlYxYgZwcm90bzM", [file_google_protobuf_any, file_google_protobuf_timestamp]);
+  fileDesc("ChZldmVudHMvdjEvZXZlbnRzLnByb3RvEhRwYXBlcmJvYXJkLmV2ZW50cy52MSLaAQoIRW52ZWxvcGUSEAoIZXZlbnRfaWQYASABKAkSEgoKZXZlbnRfdHlwZRgCIAEoCRIWCg5zb3VyY2Vfc2VydmljZRgDIAEoCRIvCgtvY2N1cnJlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASEAoIdHJhY2VfaWQYBSABKAkSDgoGb3JnX2lkGAYgASgJEiUKB3BheWxvYWQYByABKAsyFC5nb29nbGUucHJvdG9idWYuQW55EhYKDnNjaGVtYV92ZXJzaW9uGAggASgFIooBCgtVc2VyQ3JlYXRlZBIPCgd1c2VyX2lkGAEgASgJEg0KBWVtYWlsGAIgASgJEhQKDGRpc3BsYXlfbmFtZRgDIAEoCRIVCg1hdXRoX3Byb3ZpZGVyGAQgASgJEi4KCmVtaXR0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIrsBCglVc2VyTG9naW4SDwoHdXNlcl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSNQoLYXV0aF9tZXRob2QYAyABKA4yIC5wYXBlcmJvYXJkLmV2ZW50cy52MS5BdXRoTWV0aG9kEi4KCmVtaXR0ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhIKCmlwX2FkZHJlc3MYBSABKAkSEgoKdXNlcl9hZ2VudBgGIAEoCSKRAQoKVXNlckxvZ291dBIPCgd1c2VyX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRIyCgZyZWFzb24YAyABKA4yIi5wYXBlcmJvYXJkLmV2ZW50cy52MS5Mb2dvdXRSZWFzb24SLgoKZW1pdHRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAikAEKEVVzZXJBcGlLZXlSb3RhdGVkEg8KB3VzZXJfaWQYASABKAkSDgoGb3JnX2lkGAIgASgJEhIKCmFwaV9rZXlfaWQYAyABKAkSLgoKZW1pdHRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASFgoObmV3X2FwaV9rZXlfaWQYBSABKAkiygEKE09uYm9hcmRpbmdDb21wbGV0ZWQSDwoHdXNlcl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSEAoIdmF1bHRfaWQYAyABKAkSDgoGZW52X2lkGAQgASgJEhAKCGFnZW50X2lkGAUgASgJEi4KCnN0YXJ0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmVtaXR0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIrMBChBPbmJvYXJkaW5nRmFpbGVkEg8KB3VzZXJfaWQYASABKAkSDgoGb3JnX2lkGAIgASgJEhEKCWxhc3Rfc3RlcBgDIAEoCRISCgplcnJvcl9jb2RlGAQgASgJEhUKDWVycm9yX21lc3NhZ2UYBSABKAkSEAoIYXR0ZW1wdHMYBiABKAUSLgoKZW1pdHRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAipwEKEk9uYm9hcmRpbmdETFFNb3ZlZBIPCgd1c2VyX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRIRCglsYXN0X3N0ZXAYAyABKAkSGwoTZmluYWxfZXJyb3JfbWVzc2FnZRgEIAEoCRIQCghhdHRlbXB0cxgFIAEoBRIuCgplbWl0dGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCLHAQoOU2Vzc2lvblN0YXJ0ZWQSEgoKc2Vzc2lvbl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSDwoHdXNlcl9pZBgDIAEoCRIQCghhZ2VudF9pZBgEIAEoCRIOCgZlbnZfaWQYBSABKAkSLgoKc3RhcnRlZF9hdBgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLgoKZW1pdHRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAitgIKDFNlc3Npb25FbmRlZBISCgpzZXNzaW9uX2lkGAEgASgJEg4KBm9yZ19pZBgCIAEoCRIPCgd1c2VyX2lkGAMgASgJEhAKCGFnZW50X2lkGAQgASgJEi4KCnN0YXJ0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEiwKCGVuZGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIYChBkdXJhdGlvbl9zZWNvbmRzGAcgASgDEjcKBnJlYXNvbhgIIAEoDjInLnBhcGVyYm9hcmQuZXZlbnRzLnYxLlRlcm1pbmF0aW9uUmVhc29uEi4KCmVtaXR0ZWRfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIvsBCg9MTE1Ub2tlbkVtaXR0ZWQSEgoKc2Vzc2lvbl9pZBgBIAEoCRIOCgZvcmdfaWQYAiABKAkSDwoHdXNlcl9pZBgDIAEoCRIQCghhZ2VudF9pZBgEIAEoCRINCgVtb2RlbBgFIAEoCRIUCgxpbnB1dF90b2tlbnMYBiABKAUSFQoNb3V0cHV0X3Rva2VucxgHIAEoBRIZChFjYWNoZV9yZWFkX3Rva2VucxgIIAEoBRIaChJjYWNoZV93cml0ZV90b2tlbnMYCSABKAUSLgoKZW1pdHRlZF9hdBgKIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAitwIKEFNhbmRib3hMaWZlY3ljbGUSEgoKc2FuZGJveF9pZBgBIAEoCRISCgpzZXNzaW9uX2lkGAIgASgJEg4KBm9yZ19pZBgDIAEoCRI7CgVwaGFzZRgEIAEoDjIsLnBhcGVyYm9hcmQuZXZlbnRzLnYxLlNhbmRib3hMaWZlY3ljbGUuUGhhc2USDgoGcmVhc29uGAUgASgJEi4KCmVtaXR0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIm4KBVBoYXNlEhUKEVBIQVNFX1VOU1BFQ0lGSUVEEAASFQoRUEhBU0VfUFJPVklTSU9ORUQQARIPCgtQSEFTRV9SRUFEWRACEhQKEFBIQVNFX1RFUk1JTkFURUQQAxIQCgxQSEFTRV9GQUlMRUQQBCp7CgpBdXRoTWV0aG9kEhsKF0FVVEhfTUVUSE9EX1VOU1BFQ0lGSUVEEAASGAoUQVVUSF9NRVRIT0RfUEFTU1dPUkQQARIXChNBVVRIX01FVEhPRF9BUElfS0VZEAISHQoZQVVUSF9NRVRIT0RfUkVGUkVTSF9UT0tFThADKmUKDExvZ291dFJlYXNvbhIdChlMT0dPVVRfUkVBU09OX1VOU1BFQ0lGSUVEEAASGAoUTE9HT1VUX1JFQVNPTl9MT0dPVVQQARIcChhMT0dPVVRfUkVBU09OX1JFVk9LRV9BTEwQAiq/AQoRVGVybWluYXRpb25SZWFzb24SIgoeVEVSTUlOQVRJT05fUkVBU09OX1VOU1BFQ0lGSUVEEAASIAocVEVSTUlOQVRJT05fUkVBU09OX1VTRVJfUVVJVBABEh4KGlRFUk1JTkFUSU9OX1JFQVNPTl9USU1FT1VUEAISHAoYVEVSTUlOQVRJT05fUkVBU09OX0VSUk9SEAMSJgoiVEVSTUlOQVRJT05fUkVBU09OX1NZU1RFTV9TSFVURE9XThAEQtEBChhjb20ucGFwZXJib2FyZC5ldmVudHMudjFCC0V2ZW50c1Byb3RvUAFaNmdpdGh1Yi5jb20vcGFwZXItYm9hcmQvcHJvdG8vZ2VuL2dvL2V2ZW50cy92MTtldmVudHN2MaICA1BFWKoCFFBhcGVyYm9hcmQuRXZlbnRzLlYxygIUUGFwZXJib2FyZFxFdmVudHNcVjHiAiBQYXBlcmJvYXJkXEV2ZW50c1xWMVxHUEJNZXRhZGF0YeoCFlBhcGVyYm9hcmQ6OkV2ZW50czo6VjFiBnByb3RvMw", [file_google_protobuf_any, file_google_protobuf_timestamp]);
 
 /**
  * Envelope wraps every outbox event on Redis Streams.
@@ -142,16 +142,24 @@ export type UserLogin = Message<"paperboard.events.v1.UserLogin"> & {
   orgId: string;
 
   /**
-   * Open vocabulary: "password", "api_key", "refresh_token".
-   *
-   * @generated from field: string auth_method = 3;
+   * @generated from field: paperboard.events.v1.AuthMethod auth_method = 3;
    */
-  authMethod: string;
+  authMethod: AuthMethod;
 
   /**
    * @generated from field: google.protobuf.Timestamp emitted_at = 4;
    */
   emittedAt?: Timestamp | undefined;
+
+  /**
+   * @generated from field: string ip_address = 5;
+   */
+  ipAddress: string;
+
+  /**
+   * @generated from field: string user_agent = 6;
+   */
+  userAgent: string;
 };
 
 /**
@@ -179,11 +187,9 @@ export type UserLogout = Message<"paperboard.events.v1.UserLogout"> & {
   orgId: string;
 
   /**
-   * "logout" or "revoke_all".
-   *
-   * @generated from field: string reason = 3;
+   * @generated from field: paperboard.events.v1.LogoutReason reason = 3;
    */
-  reason: string;
+  reason: LogoutReason;
 
   /**
    * @generated from field: google.protobuf.Timestamp emitted_at = 4;
@@ -223,6 +229,13 @@ export type UserApiKeyRotated = Message<"paperboard.events.v1.UserApiKeyRotated"
    * @generated from field: google.protobuf.Timestamp emitted_at = 4;
    */
   emittedAt?: Timestamp | undefined;
+
+  /**
+   * Empty for pure revocation; populated for rotation.
+   *
+   * @generated from field: string new_api_key_id = 5;
+   */
+  newApiKeyId: string;
 };
 
 /**
@@ -644,6 +657,63 @@ export const SandboxLifecycle_PhaseSchema: GenEnum<SandboxLifecycle_Phase> = /*@
   enumDesc(file_events_v1_events, 11, 0);
 
 /**
+ * @generated from enum paperboard.events.v1.AuthMethod
+ */
+export enum AuthMethod {
+  /**
+   * @generated from enum value: AUTH_METHOD_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: AUTH_METHOD_PASSWORD = 1;
+   */
+  PASSWORD = 1,
+
+  /**
+   * @generated from enum value: AUTH_METHOD_API_KEY = 2;
+   */
+  API_KEY = 2,
+
+  /**
+   * @generated from enum value: AUTH_METHOD_REFRESH_TOKEN = 3;
+   */
+  REFRESH_TOKEN = 3,
+}
+
+/**
+ * Describes the enum paperboard.events.v1.AuthMethod.
+ */
+export const AuthMethodSchema: GenEnum<AuthMethod> = /*@__PURE__*/
+  enumDesc(file_events_v1_events, 0);
+
+/**
+ * @generated from enum paperboard.events.v1.LogoutReason
+ */
+export enum LogoutReason {
+  /**
+   * @generated from enum value: LOGOUT_REASON_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: LOGOUT_REASON_LOGOUT = 1;
+   */
+  LOGOUT = 1,
+
+  /**
+   * @generated from enum value: LOGOUT_REASON_REVOKE_ALL = 2;
+   */
+  REVOKE_ALL = 2,
+}
+
+/**
+ * Describes the enum paperboard.events.v1.LogoutReason.
+ */
+export const LogoutReasonSchema: GenEnum<LogoutReason> = /*@__PURE__*/
+  enumDesc(file_events_v1_events, 1);
+
+/**
  * Reason a session was terminated.
  *
  * @generated from enum paperboard.events.v1.TerminationReason
@@ -679,5 +749,5 @@ export enum TerminationReason {
  * Describes the enum paperboard.events.v1.TerminationReason.
  */
 export const TerminationReasonSchema: GenEnum<TerminationReason> = /*@__PURE__*/
-  enumDesc(file_events_v1_events, 0);
+  enumDesc(file_events_v1_events, 2);
 

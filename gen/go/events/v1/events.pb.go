@@ -26,6 +26,107 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type AuthMethod int32
+
+const (
+	AuthMethod_AUTH_METHOD_UNSPECIFIED   AuthMethod = 0
+	AuthMethod_AUTH_METHOD_PASSWORD      AuthMethod = 1
+	AuthMethod_AUTH_METHOD_API_KEY       AuthMethod = 2
+	AuthMethod_AUTH_METHOD_REFRESH_TOKEN AuthMethod = 3
+)
+
+// Enum value maps for AuthMethod.
+var (
+	AuthMethod_name = map[int32]string{
+		0: "AUTH_METHOD_UNSPECIFIED",
+		1: "AUTH_METHOD_PASSWORD",
+		2: "AUTH_METHOD_API_KEY",
+		3: "AUTH_METHOD_REFRESH_TOKEN",
+	}
+	AuthMethod_value = map[string]int32{
+		"AUTH_METHOD_UNSPECIFIED":   0,
+		"AUTH_METHOD_PASSWORD":      1,
+		"AUTH_METHOD_API_KEY":       2,
+		"AUTH_METHOD_REFRESH_TOKEN": 3,
+	}
+)
+
+func (x AuthMethod) Enum() *AuthMethod {
+	p := new(AuthMethod)
+	*p = x
+	return p
+}
+
+func (x AuthMethod) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (AuthMethod) Descriptor() protoreflect.EnumDescriptor {
+	return file_events_v1_events_proto_enumTypes[0].Descriptor()
+}
+
+func (AuthMethod) Type() protoreflect.EnumType {
+	return &file_events_v1_events_proto_enumTypes[0]
+}
+
+func (x AuthMethod) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use AuthMethod.Descriptor instead.
+func (AuthMethod) EnumDescriptor() ([]byte, []int) {
+	return file_events_v1_events_proto_rawDescGZIP(), []int{0}
+}
+
+type LogoutReason int32
+
+const (
+	LogoutReason_LOGOUT_REASON_UNSPECIFIED LogoutReason = 0
+	LogoutReason_LOGOUT_REASON_LOGOUT      LogoutReason = 1
+	LogoutReason_LOGOUT_REASON_REVOKE_ALL  LogoutReason = 2
+)
+
+// Enum value maps for LogoutReason.
+var (
+	LogoutReason_name = map[int32]string{
+		0: "LOGOUT_REASON_UNSPECIFIED",
+		1: "LOGOUT_REASON_LOGOUT",
+		2: "LOGOUT_REASON_REVOKE_ALL",
+	}
+	LogoutReason_value = map[string]int32{
+		"LOGOUT_REASON_UNSPECIFIED": 0,
+		"LOGOUT_REASON_LOGOUT":      1,
+		"LOGOUT_REASON_REVOKE_ALL":  2,
+	}
+)
+
+func (x LogoutReason) Enum() *LogoutReason {
+	p := new(LogoutReason)
+	*p = x
+	return p
+}
+
+func (x LogoutReason) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (LogoutReason) Descriptor() protoreflect.EnumDescriptor {
+	return file_events_v1_events_proto_enumTypes[1].Descriptor()
+}
+
+func (LogoutReason) Type() protoreflect.EnumType {
+	return &file_events_v1_events_proto_enumTypes[1]
+}
+
+func (x LogoutReason) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use LogoutReason.Descriptor instead.
+func (LogoutReason) EnumDescriptor() ([]byte, []int) {
+	return file_events_v1_events_proto_rawDescGZIP(), []int{1}
+}
+
 // Reason a session was terminated.
 type TerminationReason int32
 
@@ -66,11 +167,11 @@ func (x TerminationReason) String() string {
 }
 
 func (TerminationReason) Descriptor() protoreflect.EnumDescriptor {
-	return file_events_v1_events_proto_enumTypes[0].Descriptor()
+	return file_events_v1_events_proto_enumTypes[2].Descriptor()
 }
 
 func (TerminationReason) Type() protoreflect.EnumType {
-	return &file_events_v1_events_proto_enumTypes[0]
+	return &file_events_v1_events_proto_enumTypes[2]
 }
 
 func (x TerminationReason) Number() protoreflect.EnumNumber {
@@ -79,7 +180,7 @@ func (x TerminationReason) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use TerminationReason.Descriptor instead.
 func (TerminationReason) EnumDescriptor() ([]byte, []int) {
-	return file_events_v1_events_proto_rawDescGZIP(), []int{0}
+	return file_events_v1_events_proto_rawDescGZIP(), []int{2}
 }
 
 // Phase of the sandbox lifecycle transition.
@@ -122,11 +223,11 @@ func (x SandboxLifecycle_Phase) String() string {
 }
 
 func (SandboxLifecycle_Phase) Descriptor() protoreflect.EnumDescriptor {
-	return file_events_v1_events_proto_enumTypes[1].Descriptor()
+	return file_events_v1_events_proto_enumTypes[3].Descriptor()
 }
 
 func (SandboxLifecycle_Phase) Type() protoreflect.EnumType {
-	return &file_events_v1_events_proto_enumTypes[1]
+	return &file_events_v1_events_proto_enumTypes[3]
 }
 
 func (x SandboxLifecycle_Phase) Number() protoreflect.EnumNumber {
@@ -326,12 +427,13 @@ func (x *UserCreated) GetEmittedAt() *timestamppb.Timestamp {
 
 // Emitted by identity service when a user authenticates successfully.
 type UserLogin struct {
-	state  protoimpl.MessageState `protogen:"open.v1"`
-	UserId string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	OrgId  string                 `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
-	// Open vocabulary: "password", "api_key", "refresh_token".
-	AuthMethod    string                 `protobuf:"bytes,3,opt,name=auth_method,json=authMethod,proto3" json:"auth_method,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	OrgId         string                 `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
+	AuthMethod    AuthMethod             `protobuf:"varint,3,opt,name=auth_method,json=authMethod,proto3,enum=paperboard.events.v1.AuthMethod" json:"auth_method,omitempty"`
 	EmittedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=emitted_at,json=emittedAt,proto3" json:"emitted_at,omitempty"`
+	IpAddress     string                 `protobuf:"bytes,5,opt,name=ip_address,json=ipAddress,proto3" json:"ip_address,omitempty"`
+	UserAgent     string                 `protobuf:"bytes,6,opt,name=user_agent,json=userAgent,proto3" json:"user_agent,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -380,11 +482,11 @@ func (x *UserLogin) GetOrgId() string {
 	return ""
 }
 
-func (x *UserLogin) GetAuthMethod() string {
+func (x *UserLogin) GetAuthMethod() AuthMethod {
 	if x != nil {
 		return x.AuthMethod
 	}
-	return ""
+	return AuthMethod_AUTH_METHOD_UNSPECIFIED
 }
 
 func (x *UserLogin) GetEmittedAt() *timestamppb.Timestamp {
@@ -394,14 +496,27 @@ func (x *UserLogin) GetEmittedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *UserLogin) GetIpAddress() string {
+	if x != nil {
+		return x.IpAddress
+	}
+	return ""
+}
+
+func (x *UserLogin) GetUserAgent() string {
+	if x != nil {
+		return x.UserAgent
+	}
+	return ""
+}
+
 // Emitted by identity service when a user's refresh-token family is revoked
 // (explicit logout or revoke-all).
 type UserLogout struct {
-	state  protoimpl.MessageState `protogen:"open.v1"`
-	UserId string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	OrgId  string                 `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
-	// "logout" or "revoke_all".
-	Reason        string                 `protobuf:"bytes,3,opt,name=reason,proto3" json:"reason,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	OrgId         string                 `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
+	Reason        LogoutReason           `protobuf:"varint,3,opt,name=reason,proto3,enum=paperboard.events.v1.LogoutReason" json:"reason,omitempty"`
 	EmittedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=emitted_at,json=emittedAt,proto3" json:"emitted_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -451,11 +566,11 @@ func (x *UserLogout) GetOrgId() string {
 	return ""
 }
 
-func (x *UserLogout) GetReason() string {
+func (x *UserLogout) GetReason() LogoutReason {
 	if x != nil {
 		return x.Reason
 	}
-	return ""
+	return LogoutReason_LOGOUT_REASON_UNSPECIFIED
 }
 
 func (x *UserLogout) GetEmittedAt() *timestamppb.Timestamp {
@@ -467,11 +582,13 @@ func (x *UserLogout) GetEmittedAt() *timestamppb.Timestamp {
 
 // Emitted by identity service when an API key is soft-deleted (rotated/revoked).
 type UserApiKeyRotated struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	OrgId         string                 `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
-	ApiKeyId      string                 `protobuf:"bytes,3,opt,name=api_key_id,json=apiKeyId,proto3" json:"api_key_id,omitempty"`
-	EmittedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=emitted_at,json=emittedAt,proto3" json:"emitted_at,omitempty"`
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	UserId    string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	OrgId     string                 `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
+	ApiKeyId  string                 `protobuf:"bytes,3,opt,name=api_key_id,json=apiKeyId,proto3" json:"api_key_id,omitempty"`
+	EmittedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=emitted_at,json=emittedAt,proto3" json:"emitted_at,omitempty"`
+	// Empty for pure revocation; populated for rotation.
+	NewApiKeyId   string `protobuf:"bytes,5,opt,name=new_api_key_id,json=newApiKeyId,proto3" json:"new_api_key_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -532,6 +649,13 @@ func (x *UserApiKeyRotated) GetEmittedAt() *timestamppb.Timestamp {
 		return x.EmittedAt
 	}
 	return nil
+}
+
+func (x *UserApiKeyRotated) GetNewApiKeyId() string {
+	if x != nil {
+		return x.NewApiKeyId
+	}
+	return ""
 }
 
 // Emitted by onboarding service when the full provisioning flow succeeds.
@@ -1239,28 +1363,33 @@ const file_events_v1_events_proto_rawDesc = "" +
 	"\fdisplay_name\x18\x03 \x01(\tR\vdisplayName\x12#\n" +
 	"\rauth_provider\x18\x04 \x01(\tR\fauthProvider\x129\n" +
 	"\n" +
-	"emitted_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\x97\x01\n" +
+	"emitted_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\xf7\x01\n" +
 	"\tUserLogin\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x15\n" +
-	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x1f\n" +
-	"\vauth_method\x18\x03 \x01(\tR\n" +
+	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12A\n" +
+	"\vauth_method\x18\x03 \x01(\x0e2 .paperboard.events.v1.AuthMethodR\n" +
 	"authMethod\x129\n" +
 	"\n" +
-	"emitted_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\x8f\x01\n" +
+	"emitted_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\x12\x1d\n" +
+	"\n" +
+	"ip_address\x18\x05 \x01(\tR\tipAddress\x12\x1d\n" +
+	"\n" +
+	"user_agent\x18\x06 \x01(\tR\tuserAgent\"\xb3\x01\n" +
 	"\n" +
 	"UserLogout\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x15\n" +
-	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x16\n" +
-	"\x06reason\x18\x03 \x01(\tR\x06reason\x129\n" +
+	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12:\n" +
+	"\x06reason\x18\x03 \x01(\x0e2\".paperboard.events.v1.LogoutReasonR\x06reason\x129\n" +
 	"\n" +
-	"emitted_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\x9c\x01\n" +
+	"emitted_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\xc1\x01\n" +
 	"\x11UserApiKeyRotated\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x15\n" +
 	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x1c\n" +
 	"\n" +
 	"api_key_id\x18\x03 \x01(\tR\bapiKeyId\x129\n" +
 	"\n" +
-	"emitted_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\"\x88\x02\n" +
+	"emitted_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\temittedAt\x12#\n" +
+	"\x0enew_api_key_id\x18\x05 \x01(\tR\vnewApiKeyId\"\x88\x02\n" +
 	"\x13OnboardingCompleted\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x15\n" +
 	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x19\n" +
@@ -1342,7 +1471,17 @@ const file_events_v1_events_proto_rawDesc = "" +
 	"\x11PHASE_PROVISIONED\x10\x01\x12\x0f\n" +
 	"\vPHASE_READY\x10\x02\x12\x14\n" +
 	"\x10PHASE_TERMINATED\x10\x03\x12\x10\n" +
-	"\fPHASE_FAILED\x10\x04*\xbf\x01\n" +
+	"\fPHASE_FAILED\x10\x04*{\n" +
+	"\n" +
+	"AuthMethod\x12\x1b\n" +
+	"\x17AUTH_METHOD_UNSPECIFIED\x10\x00\x12\x18\n" +
+	"\x14AUTH_METHOD_PASSWORD\x10\x01\x12\x17\n" +
+	"\x13AUTH_METHOD_API_KEY\x10\x02\x12\x1d\n" +
+	"\x19AUTH_METHOD_REFRESH_TOKEN\x10\x03*e\n" +
+	"\fLogoutReason\x12\x1d\n" +
+	"\x19LOGOUT_REASON_UNSPECIFIED\x10\x00\x12\x18\n" +
+	"\x14LOGOUT_REASON_LOGOUT\x10\x01\x12\x1c\n" +
+	"\x18LOGOUT_REASON_REVOKE_ALL\x10\x02*\xbf\x01\n" +
 	"\x11TerminationReason\x12\"\n" +
 	"\x1eTERMINATION_REASON_UNSPECIFIED\x10\x00\x12 \n" +
 	"\x1cTERMINATION_REASON_USER_QUIT\x10\x01\x12\x1e\n" +
@@ -1363,51 +1502,55 @@ func file_events_v1_events_proto_rawDescGZIP() []byte {
 	return file_events_v1_events_proto_rawDescData
 }
 
-var file_events_v1_events_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_events_v1_events_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
 var file_events_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_events_v1_events_proto_goTypes = []any{
-	(TerminationReason)(0),        // 0: paperboard.events.v1.TerminationReason
-	(SandboxLifecycle_Phase)(0),   // 1: paperboard.events.v1.SandboxLifecycle.Phase
-	(*Envelope)(nil),              // 2: paperboard.events.v1.Envelope
-	(*UserCreated)(nil),           // 3: paperboard.events.v1.UserCreated
-	(*UserLogin)(nil),             // 4: paperboard.events.v1.UserLogin
-	(*UserLogout)(nil),            // 5: paperboard.events.v1.UserLogout
-	(*UserApiKeyRotated)(nil),     // 6: paperboard.events.v1.UserApiKeyRotated
-	(*OnboardingCompleted)(nil),   // 7: paperboard.events.v1.OnboardingCompleted
-	(*OnboardingFailed)(nil),      // 8: paperboard.events.v1.OnboardingFailed
-	(*OnboardingDLQMoved)(nil),    // 9: paperboard.events.v1.OnboardingDLQMoved
-	(*SessionStarted)(nil),        // 10: paperboard.events.v1.SessionStarted
-	(*SessionEnded)(nil),          // 11: paperboard.events.v1.SessionEnded
-	(*LLMTokenEmitted)(nil),       // 12: paperboard.events.v1.LLMTokenEmitted
-	(*SandboxLifecycle)(nil),      // 13: paperboard.events.v1.SandboxLifecycle
-	(*timestamppb.Timestamp)(nil), // 14: google.protobuf.Timestamp
-	(*anypb.Any)(nil),             // 15: google.protobuf.Any
+	(AuthMethod)(0),               // 0: paperboard.events.v1.AuthMethod
+	(LogoutReason)(0),             // 1: paperboard.events.v1.LogoutReason
+	(TerminationReason)(0),        // 2: paperboard.events.v1.TerminationReason
+	(SandboxLifecycle_Phase)(0),   // 3: paperboard.events.v1.SandboxLifecycle.Phase
+	(*Envelope)(nil),              // 4: paperboard.events.v1.Envelope
+	(*UserCreated)(nil),           // 5: paperboard.events.v1.UserCreated
+	(*UserLogin)(nil),             // 6: paperboard.events.v1.UserLogin
+	(*UserLogout)(nil),            // 7: paperboard.events.v1.UserLogout
+	(*UserApiKeyRotated)(nil),     // 8: paperboard.events.v1.UserApiKeyRotated
+	(*OnboardingCompleted)(nil),   // 9: paperboard.events.v1.OnboardingCompleted
+	(*OnboardingFailed)(nil),      // 10: paperboard.events.v1.OnboardingFailed
+	(*OnboardingDLQMoved)(nil),    // 11: paperboard.events.v1.OnboardingDLQMoved
+	(*SessionStarted)(nil),        // 12: paperboard.events.v1.SessionStarted
+	(*SessionEnded)(nil),          // 13: paperboard.events.v1.SessionEnded
+	(*LLMTokenEmitted)(nil),       // 14: paperboard.events.v1.LLMTokenEmitted
+	(*SandboxLifecycle)(nil),      // 15: paperboard.events.v1.SandboxLifecycle
+	(*timestamppb.Timestamp)(nil), // 16: google.protobuf.Timestamp
+	(*anypb.Any)(nil),             // 17: google.protobuf.Any
 }
 var file_events_v1_events_proto_depIdxs = []int32{
-	14, // 0: paperboard.events.v1.Envelope.occurred_at:type_name -> google.protobuf.Timestamp
-	15, // 1: paperboard.events.v1.Envelope.payload:type_name -> google.protobuf.Any
-	14, // 2: paperboard.events.v1.UserCreated.emitted_at:type_name -> google.protobuf.Timestamp
-	14, // 3: paperboard.events.v1.UserLogin.emitted_at:type_name -> google.protobuf.Timestamp
-	14, // 4: paperboard.events.v1.UserLogout.emitted_at:type_name -> google.protobuf.Timestamp
-	14, // 5: paperboard.events.v1.UserApiKeyRotated.emitted_at:type_name -> google.protobuf.Timestamp
-	14, // 6: paperboard.events.v1.OnboardingCompleted.started_at:type_name -> google.protobuf.Timestamp
-	14, // 7: paperboard.events.v1.OnboardingCompleted.emitted_at:type_name -> google.protobuf.Timestamp
-	14, // 8: paperboard.events.v1.OnboardingFailed.emitted_at:type_name -> google.protobuf.Timestamp
-	14, // 9: paperboard.events.v1.OnboardingDLQMoved.emitted_at:type_name -> google.protobuf.Timestamp
-	14, // 10: paperboard.events.v1.SessionStarted.started_at:type_name -> google.protobuf.Timestamp
-	14, // 11: paperboard.events.v1.SessionStarted.emitted_at:type_name -> google.protobuf.Timestamp
-	14, // 12: paperboard.events.v1.SessionEnded.started_at:type_name -> google.protobuf.Timestamp
-	14, // 13: paperboard.events.v1.SessionEnded.ended_at:type_name -> google.protobuf.Timestamp
-	0,  // 14: paperboard.events.v1.SessionEnded.reason:type_name -> paperboard.events.v1.TerminationReason
-	14, // 15: paperboard.events.v1.SessionEnded.emitted_at:type_name -> google.protobuf.Timestamp
-	14, // 16: paperboard.events.v1.LLMTokenEmitted.emitted_at:type_name -> google.protobuf.Timestamp
-	1,  // 17: paperboard.events.v1.SandboxLifecycle.phase:type_name -> paperboard.events.v1.SandboxLifecycle.Phase
-	14, // 18: paperboard.events.v1.SandboxLifecycle.emitted_at:type_name -> google.protobuf.Timestamp
-	19, // [19:19] is the sub-list for method output_type
-	19, // [19:19] is the sub-list for method input_type
-	19, // [19:19] is the sub-list for extension type_name
-	19, // [19:19] is the sub-list for extension extendee
-	0,  // [0:19] is the sub-list for field type_name
+	16, // 0: paperboard.events.v1.Envelope.occurred_at:type_name -> google.protobuf.Timestamp
+	17, // 1: paperboard.events.v1.Envelope.payload:type_name -> google.protobuf.Any
+	16, // 2: paperboard.events.v1.UserCreated.emitted_at:type_name -> google.protobuf.Timestamp
+	0,  // 3: paperboard.events.v1.UserLogin.auth_method:type_name -> paperboard.events.v1.AuthMethod
+	16, // 4: paperboard.events.v1.UserLogin.emitted_at:type_name -> google.protobuf.Timestamp
+	1,  // 5: paperboard.events.v1.UserLogout.reason:type_name -> paperboard.events.v1.LogoutReason
+	16, // 6: paperboard.events.v1.UserLogout.emitted_at:type_name -> google.protobuf.Timestamp
+	16, // 7: paperboard.events.v1.UserApiKeyRotated.emitted_at:type_name -> google.protobuf.Timestamp
+	16, // 8: paperboard.events.v1.OnboardingCompleted.started_at:type_name -> google.protobuf.Timestamp
+	16, // 9: paperboard.events.v1.OnboardingCompleted.emitted_at:type_name -> google.protobuf.Timestamp
+	16, // 10: paperboard.events.v1.OnboardingFailed.emitted_at:type_name -> google.protobuf.Timestamp
+	16, // 11: paperboard.events.v1.OnboardingDLQMoved.emitted_at:type_name -> google.protobuf.Timestamp
+	16, // 12: paperboard.events.v1.SessionStarted.started_at:type_name -> google.protobuf.Timestamp
+	16, // 13: paperboard.events.v1.SessionStarted.emitted_at:type_name -> google.protobuf.Timestamp
+	16, // 14: paperboard.events.v1.SessionEnded.started_at:type_name -> google.protobuf.Timestamp
+	16, // 15: paperboard.events.v1.SessionEnded.ended_at:type_name -> google.protobuf.Timestamp
+	2,  // 16: paperboard.events.v1.SessionEnded.reason:type_name -> paperboard.events.v1.TerminationReason
+	16, // 17: paperboard.events.v1.SessionEnded.emitted_at:type_name -> google.protobuf.Timestamp
+	16, // 18: paperboard.events.v1.LLMTokenEmitted.emitted_at:type_name -> google.protobuf.Timestamp
+	3,  // 19: paperboard.events.v1.SandboxLifecycle.phase:type_name -> paperboard.events.v1.SandboxLifecycle.Phase
+	16, // 20: paperboard.events.v1.SandboxLifecycle.emitted_at:type_name -> google.protobuf.Timestamp
+	21, // [21:21] is the sub-list for method output_type
+	21, // [21:21] is the sub-list for method input_type
+	21, // [21:21] is the sub-list for extension type_name
+	21, // [21:21] is the sub-list for extension extendee
+	0,  // [0:21] is the sub-list for field type_name
 }
 
 func init() { file_events_v1_events_proto_init() }
@@ -1420,7 +1563,7 @@ func file_events_v1_events_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_events_v1_events_proto_rawDesc), len(file_events_v1_events_proto_rawDesc)),
-			NumEnums:      2,
+			NumEnums:      4,
 			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   0,
